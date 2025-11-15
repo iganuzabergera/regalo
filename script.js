@@ -1,6 +1,6 @@
 function verificarContraseña() {
     // CAMBIA ESTO por tu clave secreta (asegúrate de que las minúsculas coincidan)
-    const claveSecreta = "MartaFernandez"; 
+    const claveSecreta = "Marta"; 
     
     // Obtener el valor introducido por el usuario
     let entradaUsuario = document.getElementById("casillaClave").value.trim(); // .trim() elimina espacios
@@ -11,7 +11,7 @@ function verificarContraseña() {
     // Lógica Condicional
     if (entradaUsuario.toLowerCase() === claveSecreta.toLowerCase()) {
         // CLAVE CORRECTA: Redirige a la página de la sorpresa
-        elementoError.textContent = "¡Clave Correcta! Cargando sorpresa...";
+        elementoError.textContent = "¡Clave Correcta! Preparate";
         elementoError.style.color = "#00cc00"; // Verde
 
         // Redirige a la página del Tesoro dentro del mismo proyecto
@@ -21,8 +21,7 @@ function verificarContraseña() {
 
     } else {
         // CLAVE INCORRECTA: Muestra un mensaje de error
-        elementoError.textContent = "Clave incorrecta. ¡Revisa la pista y vuelve a intentarlo!";
+        elementoError.textContent = "Clave incorrecta. ";
         elementoError.style.color = "#ff4444"; // Rojo
     }
-
 }
