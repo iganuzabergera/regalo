@@ -1,6 +1,6 @@
 function verificarContraseña() {
     // CAMBIA ESTO por tu clave secreta (asegúrate de que las minúsculas coincidan)
-    const claveSecreta = "mibodasecreta"; 
+    const claveSecreta = "MartaFernandez"; 
     
     // Obtener el valor introducido por el usuario
     let entradaUsuario = document.getElementById("casillaClave").value.trim(); // .trim() elimina espacios
@@ -24,4 +24,5 @@ function verificarContraseña() {
         elementoError.textContent = "Clave incorrecta. ¡Revisa la pista y vuelve a intentarlo!";
         elementoError.style.color = "#ff4444"; // Rojo
     }
+
 }
