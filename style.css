@@ -17,6 +17,29 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+#contador-display {
+    font-size: 3em;
+    font-weight: bold;
+    color: #ff69b4; /* El color principal que elegiste */
+    margin: 30px 0;
+}
+
+.memoria-pausa {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff0f5; 
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: aparecer 0.5s ease-out;
+}
+
+.memoria-pausa img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
 /* Estilos de la Casilla de Contraseña */
 #casillaClave {
     width: 80%;
