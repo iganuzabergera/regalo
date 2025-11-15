@@ -1,0 +1,128 @@
+/* --- ESTILOS GENERALES Y RESPONSIVOS --- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9; /* Fondo claro para la página */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.contenedor-cerradura, .seccion-bienvenida, .seccion-video, .seccion-galeria {
+    max-width: 90%; /* Ancho máximo para que se vea bien en escritorio */
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco para las secciones */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de la Casilla de Contraseña */
+#casillaClave {
+    width: 80%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#casillaClave:focus {
+    border-color: #007bff; /* Color azul al escribir */
+}
+
+/* Estilos del Botón */
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    transform: scale(0.98); /* Pequeño efecto al presionar */
+}
+
+/* Mensaje de Error (Se oculta al inicio) */
+.mensaje-error {
+    min-height: 20px; /* Evita que el layout se mueva */
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* Estilos para el Tesoro (tesoro.html) */
+iframe {
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.img-sorpresa {
+    width: 100%; /* Las imágenes ocupan todo el ancho del contenedor */
+    max-width: 400px; /* Ancho máximo para escritorio */
+    height: auto;
+    border-radius: 10px;
+    margin: 15px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- ANIMACIONES CSS (¡El toque especial!) --- */
+
+/* Definición de la animación de Aparecer */
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Definición de la animación de Deslizar */
+@keyframes deslizar {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Aplicar la animación al contenido */
+.animacion-aparecer {
+    animation: aparecer 1s ease-out 0.5s forwards; /* Duración, tipo, retraso, y mantiene el estado final */
+    opacity: 0; /* Asegura que esté oculto al inicio */
+}
+
+.animacion-deslizar {
+    animation: deslizar 1s ease-out 1s forwards; /* Retraso de 1s */
+    opacity: 0; 
+}
+
+/* Animación de las imágenes */
+.animacion-imagen {
+    animation: aparecer 0.8s ease-out forwards;
+    opacity: 0;
+    /* Usaremos CSS para dar a cada imagen un retraso único para que aparezcan en secuencia */
+}
+
+/* Retrasos secuenciales para las imágenes (Asegura que aparezcan una por una) */
+.seccion-galeria .img-sorpresa:nth-child(2) { animation-delay: 1.5s; }
+.seccion-galeria .img-sorpresa:nth-child(3) { animation-delay: 2.0s; }
+/* Puedes seguir añadiendo más :nth-child(N) si tienes más imágenes */
+
+/* MEDIA QUERY: Asegura la vista móvil (aunque los estilos base ya son responsivos) */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 24px;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}

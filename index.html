@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clave Secreta para tu Regalo</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <div class="contenedor-cerradura">
+        <h1>¡Hola! Para desbloquear tu regalo, introduce la clave secreta.</h1>
+        <p>Pista: El día de nuestro primer encuentro (¡en minúsculas!).</p>
+
+        <input type="text" id="casillaClave" placeholder="Escribe la clave aquí...">
+        
+        <button onclick="verificarContraseña()">Desbloquear Sorpresa</button>
+
+        <p id="mensajeError" class="mensaje-error"></p>
+    </div>
+
+    <script src="script.js"></script> 
+</body>
+</html>
