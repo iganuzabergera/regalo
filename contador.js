@@ -3,7 +3,6 @@
 // Paso 1: Mapear los días especiales a sus recuerdos
 const recuerdosEspeciales = {
     // CLAVE: El número del día | VALOR: El objeto con la info
-    // Asegúrate de que las imágenes estén subidas a GitHub (ej: "14-12-2024.jpg")
     "1": { img: "14-12-2024.jpg", texto: "¡Día 1! Empezamos esta increíble aventura juntos. ¡A por más!", duracion: 4000, titulo: "Nuestro Comienzo" },
     "40": { img: "22-01-2025.jpg", texto: "Día 40: Primeros momentos inolvidables. Gracias por estar aquí.", duracion: 4000, titulo: "40 Días de Felicidad" },
     "57": { img: "08-02-2025.3.jpg", texto: "Día 57: La noche de pizza y peli que terminó siendo la mejor.", duracion: 4000, titulo: "Nuestra Noche Perfecta" },
@@ -29,7 +28,7 @@ const duracionCarrusel = 100; // 100ms por foto
 let displayContador, contenidoFinal, seccionContador, carruselFondo, memoriaRecuerdo, tituloRecuerdo, textoRecuerdo;
 
 
-// Función para cambiar a la siguiente foto del carrusel
+// Función para cambiar a la siguiente foto del carrusel (EVITA EL BLANCO)
 function actualizarCarrusel() {
     // Ciclo para ir de 1 a 20
     indiceCarrusel = (indiceCarrusel % imagenesCarrusel) + 1; 
@@ -66,6 +65,9 @@ function iniciarConteoPrincipal() {
 
     intervaloContador = setInterval(() => {
         
+        // 1. Mostrar el día actual ANTES de chequear la pausa
+        displayContador.textContent = `Día ${diaActual}`;
+
         if (recuerdosEspeciales[diaActual]) {
             clearInterval(intervaloContador); 
             clearInterval(carruselIntervalo); 
@@ -77,8 +79,9 @@ function iniciarConteoPrincipal() {
                 memoriaRecuerdo.style.display = 'none';
                 carruselFondo.style.filter = 'none';
                 
-                // CORRECCIÓN SINCRONIZACIÓN: Incrementamos el día ANTES de reiniciar el intervalo
+                // 1. Incrementamos el día y 
                 diaActual++; 
+                // 2. Reiniciamos el intervalo para el siguiente ciclo
                 iniciarConteoPrincipal(); 
                 
             }, recuerdosEspeciales[diaActual].duracion);
@@ -89,8 +92,7 @@ function iniciarConteoPrincipal() {
             finalizarConteo();
             return;
         } else {
-            // CONTINUAR conteo normal
-            displayContador.textContent = `Día ${diaActual}`;
+            // CORRECCIÓN: Incrementamos el día al final del ciclo normal
             diaActual++;
         }
     }, 50); // Velocidad del conteo
