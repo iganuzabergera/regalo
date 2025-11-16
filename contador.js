@@ -3,7 +3,6 @@
 // Paso 1: Mapear los días especiales a sus recuerdos
 const recuerdosEspeciales = {
     // CLAVE: El número del día | VALOR: El objeto con la info
-    // Asegúrate de que las imágenes estén subidas a GitHub (ej: "14-12-2024.jpg")
     "1": { img: "14-12-2024.jpg", texto: "¡Día 1! Empezamos esta increíble aventura juntos. ¡A por más!", duracion: 4000, titulo: "Nuestro Comienzo" },
     "40": { img: "22-01-2025.jpg", texto: "Día 40: Primeros momentos inolvidables. Gracias por estar aquí.", duracion: 4000, titulo: "40 Días de Felicidad" },
     "57": { img: "08-02-2025.3.jpg", texto: "Día 57: La noche de pizza y peli que terminó siendo la mejor.", duracion: 4000, titulo: "Nuestra Noche Perfecta" },
@@ -25,17 +24,11 @@ let indiceCarrusel = 0;
 const imagenesCarrusel = 20; 
 const duracionCarrusel = 100; // 100ms por foto
 
-// Variables globales para los elementos del DOM (serán inicializadas después de la carga del documento)
-let displayContador;
-let contenidoFinal;
-let seccionContador;
-let carruselFondo;
-let memoriaRecuerdo;
-let tituloRecuerdo;
-let textoRecuerdo;
+// Variables globales del DOM (Se inicializarán dentro del DOMContentLoaded)
+let displayContador, contenidoFinal, seccionContador, carruselFondo, memoriaRecuerdo, tituloRecuerdo, textoRecuerdo;
 
 
-// Función para cambiar a la siguiente foto del carrusel
+// Función para cambiar a la siguiente foto del carrusel (EVITA EL BLANCO)
 function actualizarCarrusel() {
     // Ciclo para ir de 1 a 20
     indiceCarrusel = (indiceCarrusel % imagenesCarrusel) + 1; 
@@ -61,7 +54,9 @@ function iniciarCarruselFondo() {
 
 // 2. Función principal para el conteo de días
 function iniciarConteoPrincipal() {
-    // CORRECCIÓN: Asegura que el contenido final esté OCULTO al inicio
+    // Es llamada desde el reinicio y desde el DOMContentLoaded
+    
+    // CORRECCIÓN: Asegura que la página final esté OCULTA al inicio
     contenidoFinal.style.display = 'none'; 
     seccionContador.style.display = 'block';
 
@@ -81,7 +76,6 @@ function iniciarConteoPrincipal() {
                 memoriaRecuerdo.style.display = 'none';
                 carruselFondo.style.filter = 'none';
                 
-                // Reiniciar el ciclo de conteo (que reinicia el carrusel)
                 iniciarConteoPrincipal(); 
                 diaActual++; 
             }, recuerdosEspeciales[diaActual].duracion);
