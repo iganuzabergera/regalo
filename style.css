@@ -8,17 +8,28 @@ body {
     text-align: center;
 }
 
-/* El estilo de estas clases ahora aplicará al contenedor exterior */
-.contenedor-cerradura, .seccion-bienvenida, .seccion-video, .seccion-galeria, #contador-seccion {
+/* Estilo para las secciones principales */
+.contenedor-cerradura, .seccion-bienvenida, .seccion-video, .seccion-galeria {
     max-width: 90%; 
     margin: 40px auto;
-    padding: 20px; /* Reducimos el padding en el contador-seccion para el display principal */
+    padding: 20px;
     background-color: #ffffff; 
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* El contenedor principal de la visualización dinámica */
+/* Contenedor padre de la sección dinámica */
+#contador-seccion {
+    max-width: 90%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative; /* Asegura que #display-principal se posicione correctamente */
+}
+
+/* El contenedor principal de la visualización dinámica (La caja donde ocurre todo) */
 #display-principal {
     height: 350px; /* Altura fija para el área de visualización */
     position: relative; /* Clave para posicionar elementos dentro */
@@ -27,11 +38,11 @@ body {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    /* No duplicamos padding/background aquí, ya lo tiene el padre */
+    /* Aquí ya no necesita padding ni background-color, ya lo tiene el padre */
 }
 
 /* ------------------------------------------- */
-/* --- ESTILOS DE LA SECCIÓN DINÁMICA --- */
+/* --- SOLUCIÓN Z-INDEX Y CARRUSEL RÁPIDO --- */
 /* ------------------------------------------- */
 
 /* 1. Fondo del Carrusel (Cubre todo el #display-principal) */
@@ -43,8 +54,9 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center;
-    /* Aplica la animación de fondo */
-    animation: carrusel-cambio 10s infinite;
+    border-radius: 12px; 
+    z-index: 10; /* La capa más baja (el fondo) */
+    /* ELIMINAMOS 'animation: carrusel-cambio 10s infinite;' */
 }
 
 /* 2. Número del Día (Centrado y sobre el carrusel) */
@@ -53,40 +65,42 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /* Centrado perfecto */
-    z-index: 20; /* Por encima del carrusel */
+    z-index: 20; /* UNA CAPA POR ENCIMA DEL CARRUSEL */
     font-size: 3em;
     font-weight: bold;
-    color: white; /* Color que contraste con las fotos */
+    color: white; 
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-    margin: 0; /* Eliminamos el margin anterior */
+    margin: 0; 
 }
 
-/* 3. La Memoria del Recuerdo (Oculta al inicio, aparece en la pausa) */
+/* 3. La Memoria del Recuerdo (Aparece en la pausa, encima de todo) */
 #memoria-recuerdo {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente para texto */
+    background-color: rgba(0, 0, 0, 0.75); /* Fondo oscuro para que el texto destaque */
     color: white;
-    display: none; /* Oculto por defecto (JavaScript lo muestra) */
-    z-index: 30; /* Debe estar por encima de todo */
+    display: none; 
+    z-index: 30; /* LA CAPA MÁS ALTA: Aparece sobre el contador y el carrusel */
     padding: 20px;
-    box-sizing: border-box; /* Asegura que el padding no cambie el tamaño */
+    box-sizing: border-box;
     text-align: center;
     opacity: 0;
-    animation: aparecer 0.5s forwards; /* Usa la animación ya existente */
+    /* Estilo para centrar el contenido verticalmente dentro de la caja de recuerdo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #memoria-recuerdo img {
-    max-height: 50%; /* La imagen no ocupa toda la altura */
+    max-height: 50vh; /* Limita el tamaño de la imagen en el recuerdo para evitar scroll */
     max-width: 90%;
     border-radius: 8px;
     margin-top: 10px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -95,9 +109,7 @@ body {
 #memoria-recuerdo p { margin-bottom: 5px; }
 
 
-/* --- ESTILOS ANTIGUOS (ELIMINADOS O MODIFICADOS) --- */
-
-/* Estas reglas ya no aplican a #contador-display ni a .memoria-pausa y han sido eliminadas para evitar conflictos */
+/* --- ESTILOS ANTIGUOS --- */
 
 /* Estilos de la Casilla de Contraseña */
 #casillaClave {
@@ -197,7 +209,7 @@ iframe {
 .seccion-galeria .img-sorpresa:nth-child(3) { animation-delay: 2.0s; }
 
 
-/* --- CARRUSEL RÁPIDO (Se mantiene tu código de animación) --- */
+/* --- CARRUSEL RÁPIDO (Mantenemos @keyframes pero la línea de la animación está eliminada) --- */
 
 @keyframes carrusel-cambio {
     0%   { background-image: url('carrusel-1.jpg'); }
@@ -226,7 +238,7 @@ iframe {
 
 /* MEDIA QUERY PARA ESCRITORIO (Regla antigua, asegura que las imágenes no sean enormes) */
 @media (min-width: 800px) {
-    .memoria-pausa img {
+    #memoria-recuerdo img {
         max-width: 400px;
         max-height: 400px;
         width: auto;
