@@ -23,29 +23,27 @@ let carruselIntervalo;
 // --- CONFIGURACIÓN DEL CARRUSEL RÁPDO ---
 let indiceCarrusel = 0; 
 const imagenesCarrusel = 20; 
-const duracionCarrusel = 100; // 100ms por foto, para efecto rápido
+const duracionCarrusel = 100; // 100ms por foto
 
-// Elementos del DOM (Definidos aquí para que sean globales y accesibles)
-const displayContador = document.getElementById('contador-display');
-const contenidoFinal = document.getElementById('contenido-final');
-const seccionContador = document.getElementById('contador-seccion');
-const carruselFondo = document.getElementById('carrusel-fondo');
-const memoriaRecuerdo = document.getElementById('memoria-recuerdo');
-const tituloRecuerdo = document.getElementById('titulo-recuerdo');
-const textoRecuerdo = document.getElementById('texto-recuerdo');
+// Variables globales para los elementos del DOM (serán inicializadas después de la carga del documento)
+let displayContador;
+let contenidoFinal;
+let seccionContador;
+let carruselFondo;
+let memoriaRecuerdo;
+let tituloRecuerdo;
+let textoRecuerdo;
 
 
-// --- LÓGICA DEL CARRUSEL Y CONTEO ---
-
-// Función para cambiar a la siguiente foto del carrusel (EVITA EL BLANCO)
+// Función para cambiar a la siguiente foto del carrusel
 function actualizarCarrusel() {
     // Ciclo para ir de 1 a 20
     indiceCarrusel = (indiceCarrusel % imagenesCarrusel) + 1; 
 
-    // Corrección para asegurar el formato 'carrusel-01.jpg' hasta 'carrusel-20.jpg'
+    // Corrección para asegurar el formato 'carrusel-01.jpg'
     const nombreArchivo = indiceCarrusel < 10 ? `carrusel-0${indiceCarrusel}.jpg` : `carrusel-${indiceCarrusel}.jpg`;
     
-    // Aplica la imagen de fondo (Causa el cambio brusco deseado)
+    // Aplica la imagen de fondo
     carruselFondo.style.backgroundImage = `url('${nombreArchivo}')`;
     carruselFondo.style.filter = 'none'; 
 }
@@ -54,25 +52,27 @@ function actualizarCarrusel() {
 function iniciarCarruselFondo() {
     memoriaRecuerdo.style.display = 'none';
 
-    // Ejecuta la primera foto inmediatamente (Soluciona el problema del blanco)
+    // Ejecuta la primera foto inmediatamente (SOLUCIÓN AL BLANCO)
     actualizarCarrusel(); 
 
     // Luego, configura el intervalo para la rotación
     carruselIntervalo = setInterval(actualizarCarrusel, duracionCarrusel); 
 }
 
-// 2. Función principal para el conteo de días (FUNCIÓN DE REINICIO)
+// 2. Función principal para el conteo de días
 function iniciarConteoPrincipal() {
-    // Es llamada desde el reinicio y desde window.onload (ver abajo)
-    
+    // CORRECCIÓN: Asegura que el contenido final esté OCULTO al inicio
+    contenidoFinal.style.display = 'none'; 
+    seccionContador.style.display = 'block';
+
     // INICIAR EL CARRUSEL RÁPIDO
     iniciarCarruselFondo(); 
 
     intervaloContador = setInterval(() => {
         
         if (recuerdosEspeciales[diaActual]) {
-            clearInterval(intervaloContador);
-            clearInterval(carruselIntervalo);
+            clearInterval(intervaloContador); 
+            clearInterval(carruselIntervalo); 
             
             mostrarRecuerdo(recuerdosEspeciales[diaActual]);
             
@@ -81,7 +81,7 @@ function iniciarConteoPrincipal() {
                 memoriaRecuerdo.style.display = 'none';
                 carruselFondo.style.filter = 'none';
                 
-                // Llama a la función de reinicio (con el mismo nombre)
+                // Reiniciar el ciclo de conteo (que reinicia el carrusel)
                 iniciarConteoPrincipal(); 
                 diaActual++; 
             }, recuerdosEspeciales[diaActual].duracion);
@@ -128,15 +128,18 @@ function finalizarConteo() {
     contenidoFinal.style.display = 'block';
 }
 
-// --- ARRANQUE INICIAL (Función de Carga Segura) ---
-function inicializarApp() {
-    // Aseguramos que la página final esté OCULTA y la sección de contador VISIBLE al inicio
-    contenidoFinal.style.display = 'none'; 
-    seccionContador.style.display = 'block';
+// --- ARRANQUE INICIAL (El Listener de Eventos más seguro) ---
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar las variables DOM una vez que el documento está listo
+    displayContador = document.getElementById('contador-display');
+    contenidoFinal = document.getElementById('contenido-final');
+    seccionContador = document.getElementById('contador-seccion');
+    carruselFondo = document.getElementById('carrusel-fondo');
+    memoriaRecuerdo = document.getElementById('memoria-recuerdo');
+    tituloRecuerdo = document.getElementById('titulo-recuerdo');
+    textoRecuerdo = document.getElementById('texto-recuerdo');
 
     // Inicia el proceso de conteo y carrusel
     iniciarConteoPrincipal(); 
-}
-
-// Llamada a la función de Carga Segura
-window.onload = inicializarApp;
+});
