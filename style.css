@@ -8,7 +8,7 @@ body {
     text-align: center;
 }
 
-/* Estilo para las secciones principales */
+/* Estilo para las secciones principales (Cerradura, Bienvenida, Video, Galería) */
 .contenedor-cerradura, .seccion-bienvenida, .seccion-video, .seccion-galeria {
     max-width: 90%; 
     margin: 40px auto;
@@ -26,26 +26,38 @@ body {
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    position: relative; /* Asegura que #display-principal se posicione correctamente */
+    /* Se elimina 'position: relative' para evitar conflictos */
 }
 
-/* El contenedor principal de la visualización dinámica (La caja donde ocurre todo) */
-#display-principal {
-    height: 350px; /* Altura fija para el área de visualización */
-    position: relative; /* Clave para posicionar elementos dentro */
+/* --- ESTILOS DE LA NUEVA ESTRUCTURA SEPARADA --- */
+
+/* Contenedor 1: Solo para el número del día */
+#contador-numeros {
+    /* Mantenemos un diseño simple y central */
+    padding: 10px 0;
+}
+
+/* Estilo del número del día */
+#contador-display {
+    font-size: 3em;
+    font-weight: bold;
+    color: #ff69b4; 
+    margin: 30px 0 10px 0; /* Espacio debajo del contador */
+    /* Eliminamos el posicionamiento absoluto */
+}
+
+/* Contenedor 2: El Carrusel/Recuerdo Visual */
+#carrusel-visual {
+    height: 350px; /* Altura fija para el área visual (Carrusel y Recuerdo) */
+    position: relative; /* CLAVE: Para que el carrusel de fondo y la memoria se superpongan DENTRO */
     margin: 30px auto;
     max-width: 90%;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    /* Aquí ya no necesita padding ni background-color, ya lo tiene el padre */
 }
 
-/* ------------------------------------------- */
-/* --- SOLUCIÓN Z-INDEX Y CARRUSEL RÁPIDO --- */
-/* ------------------------------------------- */
-
-/* 1. Fondo del Carrusel (Cubre todo el #display-principal) */
+/* 1. Fondo del Carrusel (Cubre todo el #carrusel-visual) */
 #carrusel-fondo {
     position: absolute;
     top: 0;
@@ -55,61 +67,52 @@ body {
     background-size: cover;
     background-position: center;
     border-radius: 12px; 
-    z-index: 10; /* La capa más baja (el fondo) */
-    /* ELIMINAMOS 'animation: carrusel-cambio 10s infinite;' */
+    z-index: 10; 
+    transition: filter 0.5s; /* Transición suave al oscurecer/aclarar */
+    /* Eliminamos la animación CSS, JS lo controlará */
 }
 
-/* 2. Número del Día (Centrado y sobre el carrusel) */
-#contador-display {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centrado perfecto */
-    z-index: 20; /* UNA CAPA POR ENCIMA DEL CARRUSEL */
-    font-size: 3em;
-    font-weight: bold;
-    color: white; 
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-    margin: 0; 
-}
-
-/* 3. La Memoria del Recuerdo (Aparece en la pausa, encima de todo) */
+/* 2. La Memoria del Recuerdo (Aparece en la pausa, encima del carrusel) */
 #memoria-recuerdo {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75); /* Fondo oscuro para que el texto destaque */
+    /* Fondo semi-transparente para texto (ahora tiene fondo, pero la foto del carrusel se oscurece) */
+    background-color: rgba(0, 0, 0, 0); 
     color: white;
-    display: none; 
-    z-index: 30; /* LA CAPA MÁS ALTA: Aparece sobre el contador y el carrusel */
+    display: none; /* OCULTO POR DEFECTO (JavaScript lo muestra) */
+    z-index: 20; /* UNA CAPA POR ENCIMA DEL CARRUSEL */
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
-    opacity: 0;
-    /* Estilo para centrar el contenido verticalmente dentro de la caja de recuerdo */
+
+    /* Estilo para centrar el contenido verticalmente */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end; /* Alinea la frase y título abajo de la foto */
     align-items: center;
 }
 
-#memoria-recuerdo img {
-    max-height: 50vh; /* Limita el tamaño de la imagen en el recuerdo para evitar scroll */
-    max-width: 90%;
-    border-radius: 8px;
-    margin-top: 10px;
-    display: block;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+/* Estilo de la imagen de recuerdo (debe ser la misma que el fondo del carrusel, pero con texto encima) */
+#imagen-recuerdo {
+    display: none; /* Ocultamos la etiqueta IMG; solo usamos el fondo del carrusel */
 }
 
-/* Estilos de los elementos internos del recuerdo */
-#memoria-recuerdo h3 { margin-top: 5px; }
-#memoria-recuerdo p { margin-bottom: 5px; }
+#memoria-recuerdo h3 { 
+    margin-top: 5px; 
+    /* Estilos de tipografía para el título del recuerdo */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+}
+#memoria-recuerdo p { 
+    margin-bottom: 5px; 
+    font-size: 1.1em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+}
 
 
-/* --- ESTILOS ANTIGUOS --- */
+/* --- ESTILOS ANTIGUOS (Se mantienen para la cerradura y la página final) --- */
 
 /* Estilos de la Casilla de Contraseña */
 #casillaClave {
@@ -148,14 +151,14 @@ button:active {
     transform: scale(0.98); /* Pequeño efecto al presionar */
 }
 
-/* Mensaje de Error (Se oculta al inicio) */
+/* Mensaje de Error */
 .mensaje-error {
-    min-height: 20px; /* Evita que el layout se mueva */
+    min-height: 20px; 
     margin-top: 15px;
     font-weight: bold;
 }
 
-/* Estilos para el Tesoro (tesoro.html) */
+/* Estilos para el Tesoro (página final) */
 iframe {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -173,21 +176,18 @@ iframe {
     margin-right: auto;
 }
 
-/* --- ANIMACIONES CSS --- */
+/* --- ANIMACIONES CSS (SE CONSERVAN) --- */
 
-/* Definición de la animación de Aparecer */
 @keyframes aparecer {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Definición de la animación de Deslizar */
 @keyframes deslizar {
     from { opacity: 0; transform: translateX(-50px); }
     to { opacity: 1; transform: translateX(0); }
 }
 
-/* Aplicar la animación al contenido */
 .animacion-aparecer {
     animation: aparecer 1s ease-out 0.5s forwards; 
     opacity: 0; 
@@ -198,19 +198,16 @@ iframe {
     opacity: 0; 
 }
 
-/* Animación de las imágenes */
 .animacion-imagen {
     animation: aparecer 0.8s ease-out forwards;
     opacity: 0;
 }
 
-/* Retrasos secuenciales para las imágenes */
 .seccion-galeria .img-sorpresa:nth-child(2) { animation-delay: 1.5s; }
 .seccion-galeria .img-sorpresa:nth-child(3) { animation-delay: 2.0s; }
 
 
-/* --- CARRUSEL RÁPIDO (Mantenemos @keyframes pero la línea de la animación está eliminada) --- */
-
+/* --- CARRUSEL RÁPIDO (Se mantiene @keyframes, pero JS lo usará como base para nombres de archivo) --- */
 @keyframes carrusel-cambio {
     0%   { background-image: url('carrusel-1.jpg'); }
     5%   { background-image: url('carrusel-2.jpg'); }
@@ -236,14 +233,14 @@ iframe {
 }
 
 
-/* MEDIA QUERY PARA ESCRITORIO (Regla antigua, asegura que las imágenes no sean enormes) */
+/* MEDIA QUERY PARA ESCRITORIO */
 @media (min-width: 800px) {
     #memoria-recuerdo img {
         max-width: 400px;
         max-height: 400px;
         width: auto;
     }
-    .contenedor-cerradura, .seccion-bienvenida, #contador-seccion, #display-principal {
+    .contenedor-cerradura, .seccion-bienvenida, #contador-seccion, #carrusel-visual {
         max-width: 800px;
     }
 }

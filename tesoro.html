@@ -3,36 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡La Sorpresa Está Aquí!</title>
-    <link rel="stylesheet" href="style.css"> 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feliz Aniversario</title>
     <link rel="stylesheet" href="style.css">
-    </head>
+</head>
 <body>
+    
     <div id="contador-seccion">
         <h1 class="animacion-aparecer">¡Feliz 1er Aniversario!</h1>
         <p class="animacion-aparecer" style="animation-delay: 0.8s;">Reviviendo nuestro primer año juntos, día a día...</p>
         
-        <div id="display-principal">
-            
-            <div id="carrusel-fondo"></div> 
-            
+        <!-- CONTENEDOR 1: SOLO EL NÚMERO DEL DÍA -->
+        <div id="contador-numeros" class="seccion-contador">
             <div id="contador-display" class="display-numero">Día 1</div>
+        </div>
+        
+        <!-- CONTENEDOR 2: EL CARRUSEL/RECUERDO VISUAL -->
+        <div id="carrusel-visual" class="seccion-visual">
             
+            <!-- Aquí irán las fotos del carrusel rápido (como fondo) -->
+            <div id="carrusel-fondo"></div>
+            
+            <!-- Aquí aparece la foto y la frase del día marcado (se superpone al fondo) -->
             <div id="memoria-recuerdo">
                 <img id="imagen-recuerdo" src="" alt="Recuerdo del día especial">
                 <h3 id="titulo-recuerdo"></h3>
                 <p id="texto-recuerdo"></p>
             </div>
-
+            
         </div>
-        </div>
+    </div>
     
+    <!-- PÁGINA FINAL (Se conserva intacta y se muestra al final) -->
     <div id="contenido-final" style="display: none;">
         
         <div class="seccion-bienvenida animacion-aparecer">
