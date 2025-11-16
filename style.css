@@ -8,39 +8,96 @@ body {
     text-align: center;
 }
 
-.contenedor-cerradura, .seccion-bienvenida, .seccion-video, .seccion-galeria {
-    max-width: 90%; /* Ancho máximo para que se vea bien en escritorio */
+/* El estilo de estas clases ahora aplicará al contenedor exterior */
+.contenedor-cerradura, .seccion-bienvenida, .seccion-video, .seccion-galeria, #contador-seccion {
+    max-width: 90%; 
     margin: 40px auto;
-    padding: 20px;
-    background-color: #ffffff; /* Fondo blanco para las secciones */
+    padding: 20px; /* Reducimos el padding en el contador-seccion para el display principal */
+    background-color: #ffffff; 
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* El contenedor principal de la visualización dinámica */
+#display-principal {
+    height: 350px; /* Altura fija para el área de visualización */
+    position: relative; /* Clave para posicionar elementos dentro */
+    margin: 30px auto;
+    max-width: 90%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    /* No duplicamos padding/background aquí, ya lo tiene el padre */
+}
+
+/* ------------------------------------------- */
+/* --- ESTILOS DE LA SECCIÓN DINÁMICA --- */
+/* ------------------------------------------- */
+
+/* 1. Fondo del Carrusel (Cubre todo el #display-principal) */
+#carrusel-fondo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    /* Aplica la animación de fondo */
+    animation: carrusel-cambio 10s infinite;
+}
+
+/* 2. Número del Día (Centrado y sobre el carrusel) */
 #contador-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrado perfecto */
+    z-index: 20; /* Por encima del carrusel */
     font-size: 3em;
     font-weight: bold;
-    color: #ff69b4; /* El color principal que elegiste */
-    margin: 30px 0;
+    color: white; /* Color que contraste con las fotos */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+    margin: 0; /* Eliminamos el margin anterior */
 }
 
-.memoria-pausa {
-    margin-top: 30px;
+/* 3. La Memoria del Recuerdo (Oculta al inicio, aparece en la pausa) */
+#memoria-recuerdo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente para texto */
+    color: white;
+    display: none; /* Oculto por defecto (JavaScript lo muestra) */
+    z-index: 30; /* Debe estar por encima de todo */
     padding: 20px;
-    background-color: #fff0f5; 
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    animation: aparecer 0.5s ease-out;
+    box-sizing: border-box; /* Asegura que el padding no cambie el tamaño */
+    text-align: center;
+    opacity: 0;
+    animation: aparecer 0.5s forwards; /* Usa la animación ya existente */
 }
 
-.memoria-pausa img {
-    max-width: 50%;
-    height: auto;
-    display: block
+#memoria-recuerdo img {
+    max-height: 50%; /* La imagen no ocupa toda la altura */
+    max-width: 90%;
     border-radius: 8px;
-    margin: 15px auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15)
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
+
+/* Estilos de los elementos internos del recuerdo */
+#memoria-recuerdo h3 { margin-top: 5px; }
+#memoria-recuerdo p { margin-bottom: 5px; }
+
+
+/* --- ESTILOS ANTIGUOS (ELIMINADOS O MODIFICADOS) --- */
+
+/* Estas reglas ya no aplican a #contador-display ni a .memoria-pausa y han sido eliminadas para evitar conflictos */
 
 /* Estilos de la Casilla de Contraseña */
 #casillaClave {
@@ -93,8 +150,8 @@ iframe {
 }
 
 .img-sorpresa {
-    width: 100%; /* Las imágenes ocupan todo el ancho del contenedor */
-    max-width: 400px; /* Ancho máximo para escritorio */
+    width: 100%; 
+    max-width: 400px; 
     height: auto;
     border-radius: 10px;
     margin: 15px 0;
@@ -104,7 +161,7 @@ iframe {
     margin-right: auto;
 }
 
-/* --- ANIMACIONES CSS (¡El toque especial!) --- */
+/* --- ANIMACIONES CSS --- */
 
 /* Definición de la animación de Aparecer */
 @keyframes aparecer {
@@ -120,12 +177,12 @@ iframe {
 
 /* Aplicar la animación al contenido */
 .animacion-aparecer {
-    animation: aparecer 1s ease-out 0.5s forwards; /* Duración, tipo, retraso, y mantiene el estado final */
-    opacity: 0; /* Asegura que esté oculto al inicio */
+    animation: aparecer 1s ease-out 0.5s forwards; 
+    opacity: 0; 
 }
 
 .animacion-deslizar {
-    animation: deslizar 1s ease-out 1s forwards; /* Retraso de 1s */
+    animation: deslizar 1s ease-out 1s forwards; 
     opacity: 0; 
 }
 
@@ -133,75 +190,48 @@ iframe {
 .animacion-imagen {
     animation: aparecer 0.8s ease-out forwards;
     opacity: 0;
-    /* Usaremos CSS para dar a cada imagen un retraso único para que aparezcan en secuencia */
 }
 
-/* Retrasos secuenciales para las imágenes (Asegura que aparezcan una por una) */
+/* Retrasos secuenciales para las imágenes */
 .seccion-galeria .img-sorpresa:nth-child(2) { animation-delay: 1.5s; }
 .seccion-galeria .img-sorpresa:nth-child(3) { animation-delay: 2.0s; }
-/* Puedes seguir añadiendo más :nth-child(N) si tienes más imágenes */
 
-/* MEDIA QUERY: Asegura la vista móvil (aunque los estilos base ya son responsivos) */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 24px;
-    }
-    button {
-        padding: 10px 20px;
-        font-size: 16px;
-    }
-}
 
-/* --- NUEVOS ESTILOS PARA EL CARRUSEL RÁPIDO --- */
+/* --- CARRUSEL RÁPIDO (Se mantiene tu código de animación) --- */
 
-/* Contenedor del carrusel */
-#carrusel-rapido {
-    height: 150px; /* Altura para el carrusel */
-    background-size: cover;
-    background-position: center;
-    border-radius: 8px;
-    margin: 20px auto;
-    max-width: 90%; /* Asegura que se vea bien en móvil */
-    position: relative;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    
-    /* Aplica la animación de fondo */
-    animation: carrusel-cambio 10s infinite; /* 10 segundos para un ciclo completo */
-}
-
-/* Define el cambio de imágenes y el efecto de fade */
 @keyframes carrusel-cambio {
-   0%   { background-image: url('carrusel-1.jpg'); }
-   5%   { background-image: url('carrusel-2.jpg'); }
-   10%  { background-image: url('carrusel-3.jpg'); }
-   15%  { background-image: url('carrusel-4.webp'); }
-   20%  { background-image: url('01-08-2025.3.jpg'); }
-   25%  { background-image: url('02-08-2025.1.jpg'); }
-   30%  { background-image: url('02-08-2025.4.jpg'); }
-   35%  { background-image: url('04-10-2025.jpg'); }
-   40%  { background-image: url('04-03-2025.2.jpg'); }
-   45%  { background-image: url('30-06-2025.jpg'); }
-   50%  { background-image: url('25-04-2025.3.jpg'); }  
-   55%  { background-image: url('09-02-2025.jpg'); }
-   60%  { background-image: url('31-07-2025.jpg'); }
-   65%  { background-image: url('25-04-2025.1.jpg'); }
-   70%  { background-image: url('25-04-2025.jpg'); }
-   75%  { background-image: url('carrusel-5.jpeg'); }
-   80%  { background-image: url('carrusel-6.jpeg'); }
-   85%  { background-image: url('carrusel-7.jpeg'); }
-   90%  { background-image: url('carrusel-8.jpeg'); }
-   95%  { background-image: url('25-04-2025.jpg'); }
-   100% { background-image: url('carrusel-1.jpg'); }
+    0%   { background-image: url('carrusel-1.jpg'); }
+    5%   { background-image: url('carrusel-2.jpg'); }
+    10%  { background-image: url('carrusel-3.jpg'); }
+    15%  { background-image: url('carrusel-4.webp'); }
+    20%  { background-image: url('01-08-2025.3.jpg'); }
+    25%  { background-image: url('02-08-2025.1.jpg'); }
+    30%  { background-image: url('02-08-2025.4.jpg'); }
+    35%  { background-image: url('04-10-2025.jpg'); }
+    40%  { background-image: url('04-03-2025.2.jpg'); }
+    45%  { background-image: url('30-06-2025.jpg'); }
+    50%  { background-image: url('25-04-2025.3.jpg'); }  
+    55%  { background-image: url('09-02-2025.jpg'); }
+    60%  { background-image: url('31-07-2025.jpg'); }
+    65%  { background-image: url('25-04-2025.1.jpg'); }
+    70%  { background-image: url('25-04-2025.jpg'); }
+    75%  { background-image: url('carrusel-5.jpeg'); }
+    80%  { background-image: url('carrusel-6.jpeg'); }
+    85%  { background-image: url('carrusel-7.jpeg'); }
+    90%  { background-image: url('carrusel-8.jpeg'); }
+    95%  { background-image: url('25-04-2025.jpg'); }
+    100% { background-image: url('carrusel-1.jpg'); }
 }
 
-/* Estilo para la memoria que aparece al pausar (para que destaque) */
-.memoria-pausa {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #ffffff; /* Fondo blanco para contrastar */
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
-    animation: aparecer 0.5s ease-out; 
-    position: relative; 
-    z-index: 10; 
+
+/* MEDIA QUERY PARA ESCRITORIO (Regla antigua, asegura que las imágenes no sean enormes) */
+@media (min-width: 800px) {
+    .memoria-pausa img {
+        max-width: 400px;
+        max-height: 400px;
+        width: auto;
+    }
+    .contenedor-cerradura, .seccion-bienvenida, #contador-seccion, #display-principal {
+        max-width: 800px;
+    }
 }
