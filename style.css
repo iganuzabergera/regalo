@@ -151,3 +151,57 @@ iframe {
         font-size: 16px;
     }
 }
+
+/* --- NUEVOS ESTILOS PARA EL CARRUSEL RÁPIDO --- */
+
+/* Contenedor del carrusel */
+#carrusel-rapido {
+    height: 150px; /* Altura para el carrusel */
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 90%; /* Asegura que se vea bien en móvil */
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    /* Aplica la animación de fondo */
+    animation: carrusel-cambio 10s infinite; /* 10 segundos para un ciclo completo */
+}
+
+/* Define el cambio de imágenes y el efecto de fade */
+@keyframes carrusel-cambio {
+   0%   { background-image: url('carrusel-1.jpg'); }
+   5%   { background-image: url('carrusel-2.jpg'); }
+   10%  { background-image: url('carrusel-3.jpg'); }
+   15%  { background-image: url('carrusel-4.webp'); }
+   20%  { background-image: url('01-08-2025.3.jpg'); }
+   25%  { background-image: url('02-08-2025.1.jpg'); }
+   30%  { background-image: url('02-08-2025.4.jpg'); }
+   35%  { background-image: url('04-10-2025.jpg'); }
+   40%  { background-image: url('04-03-2025.2.jpg'); }
+   45%  { background-image: url('30-06-2025.jpg'); }
+   50%  { background-image: url('25-04-2025.3.jpg'); }  
+   55%  { background-image: url('09-02-2025.jpg'); }
+   60%  { background-image: url('31-07-2025.jpg'); }
+   65%  { background-image: url('25-04-2025.1.jpg'); }
+   70%  { background-image: url('25-04-2025.jpg'); }
+   75%  { background-image: url('carrusel-5.jpeg'); }
+   80%  { background-image: url('carrusel-6.jpeg'); }
+   85%  { background-image: url('carrusel-7.jpeg'); }
+   90%  { background-image: url('carrusel-8.jpeg'); }
+   95%  { background-image: url('25-04-2025.jpg'); }
+   100% { background-image: url('carrusel-1.jpg'); }
+}
+
+/* Estilo para la memoria que aparece al pausar (para que destaque) */
+.memoria-pausa {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco para contrastar */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
+    animation: aparecer 0.5s ease-out; 
+    position: relative; 
+    z-index: 10; 
+}

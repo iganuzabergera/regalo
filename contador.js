@@ -3,10 +3,20 @@
 // Paso 1: Mapear los días especiales a sus recuerdos
 const recuerdosEspeciales = {
     // CLAVE: El número del día | VALOR: El objeto con la info
-    "1": { img: "14-12-2024.jpg", texto: "¡Día 50! Nuestra primera escapada a la playa. ¡Qué frío hacía!", duracion: 3000 },
+    "1": { img: "14-12-2024.jpg", texto: "¡Día 50! Nuestra primera escapada a la playa. ¡Qué frío hacía!", duracion: 4000 },
+    "40":{img: "22-01-2025.jpg",duracion: 4000},
     "57": { img: "08-02-2025.3.jpg", texto: "Día 120: La noche de pizza y peli que terminó siendo la mejor.", duracion: 4000 },
-    "58": { img: "09-02-2025.jpg", texto: "Día 200: El recuerdo de nuestro primer viaje de Navidad, me encantó.", duracion: 5000 },
-    // AÑADE MÁS DÍAS Y FOTOS AQUÍ (recuerda subir estas imágenes a GitHub)
+    "58": { img: "09-02-2025.jpg", texto: "Día 200: El recuerdo de nuestro primer viaje de Navidad, me encantó.", duracion: 4000 },
+    "80": { img: "03-03-2025.jpg", texto: "puta", duracion: 4000 },
+    "81": { img: "04-03-2025.jpg", texto: "pua", duracion: 4000 },
+    "133": { img: "25-04-2025.2.jpg", texto: "pa", duracion: 4000 },
+    "199": { img: "30-06-2025.jpg", texto: "loca", duracion: 4000 },
+    "230": { img: "31-07-2025.jpg", texto: "loa", duracion: 4000 },
+    "231": { img: "01-08-2025.1.jpg", texto: "lo", duracion: 4000 },
+    "232": { img: "02-08-2025.4.jpg", texto: "lol", duracion: 4000 },
+    "231": { img: "10-09-2025.jpg", texto: "lola", duracion: 4000 },
+    "295": { img: "04-10-2025.1.jpg", texto: "lolita", duracion: 4000 },
+ // AÑADE MÁS DÍAS Y FOTOS AQUÍ (recuerda subir estas imágenes a GitHub)
 };
 
 const diaFinal = 365;
