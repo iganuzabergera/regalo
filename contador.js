@@ -17,20 +17,20 @@ const recuerdosEspeciales = {
 
 const diaFinal = 365;
 let diaActual = 1;
-let intervaloContador; // Controla el avance del día
-let carruselIntervalo; // Controla el cambio de fotos del carrusel
+let intervaloContador; 
+let carruselIntervalo; 
 
 // --- CONFIGURACIÓN DEL CARRUSEL RÁPDO ---
 let indiceCarrusel = 0; 
 const imagenesCarrusel = 20; 
 const duracionCarrusel = 100; // 100ms por foto, para efecto rápido
 
-// Elementos del DOM
+// Elementos del DOM (Definidos aquí para que sean globales y accesibles)
 const displayContador = document.getElementById('contador-display');
 const contenidoFinal = document.getElementById('contenido-final');
 const seccionContador = document.getElementById('contador-seccion');
 const carruselFondo = document.getElementById('carrusel-fondo');
-const memoriaRecuerdo = document.getElementById('memoria-recuerdo'); // La caja de recuerdo
+const memoriaRecuerdo = document.getElementById('memoria-recuerdo');
 const tituloRecuerdo = document.getElementById('titulo-recuerdo');
 const textoRecuerdo = document.getElementById('texto-recuerdo');
 
@@ -47,44 +47,96 @@ function actualizarCarrusel() {
     
     // Aplica la imagen de fondo (Causa el cambio brusco deseado)
     carruselFondo.style.backgroundImage = `url('${nombreArchivo}')`;
-    carruselFondo.style.filter = 'none'; // Asegura que no esté oscuro
+    carruselFondo.style.filter = 'none'; 
 }
 
 // 1. Inicia la rotación rápida de las 20 fotos
 function iniciarCarruselFondo() {
-    // 1. Oculta el recuerdo para que solo se vea el carrusel
     memoriaRecuerdo.style.display = 'none';
 
-    // 2. Ejecuta la primera foto inmediatamente (Soluciona el problema del blanco)
+    // Ejecuta la primera foto inmediatamente (Soluciona el problema del blanco)
     actualizarCarrusel(); 
 
-    // 3. Configura el intervalo para la rotación
+    // Luego, configura el intervalo para la rotación
     carruselIntervalo = setInterval(actualizarCarrusel, duracionCarrusel); 
 }
 
-// 2. Función principal para el conteo de días
-function iniciarContador() {
-    // CORRECCIÓN: Asegura que la página final esté OCULTA al inicio
-    contenidoFinal.style.display = 'none'; 
-    seccionContador.style.display = 'block';
-
+// 2. Función principal para el conteo de días (FUNCIÓN DE REINICIO)
+function iniciarConteoPrincipal() {
+    // Es llamada desde el reinicio y desde window.onload (ver abajo)
+    
     // INICIAR EL CARRUSEL RÁPIDO
     iniciarCarruselFondo(); 
 
     intervaloContador = setInterval(() => {
         
-        // A. Verificar PAUSA (Día Especial)
         if (recuerdosEspeciales[diaActual]) {
-            clearInterval(intervaloContador); // Detiene el contador de días
-            clearInterval(carruselIntervalo); // Detiene el carrusel rápido
+            clearInterval(intervaloContador);
+            clearInterval(carruselIntervalo);
             
             mostrarRecuerdo(recuerdosEspeciales[diaActual]);
             
             // Reanudar el contador y el carrusel después de la duración de la pausa
             setTimeout(() => {
-                // Ocultar el recuerdo
                 memoriaRecuerdo.style.display = 'none';
-                // Quita el oscurecimiento del fondo
                 carruselFondo.style.filter = 'none';
                 
-                // Reiniciar el ciclo
+                // Llama a la función de reinicio (con el mismo nombre)
+                iniciarConteoPrincipal(); 
+                diaActual++; 
+            }, recuerdosEspeciales[diaActual].duracion);
+            
+        } else if (diaActual > diaFinal) {
+            clearInterval(intervaloContador);
+            clearInterval(carruselIntervalo);
+            finalizarConteo();
+            return;
+        } else {
+            // CONTINUAR conteo normal
+            displayContador.textContent = `Día ${diaActual}`;
+            diaActual++;
+        }
+    }, 50); // Velocidad del conteo
+}
+
+// 3. Función para mostrar la imagen y el texto especial
+function mostrarRecuerdo(recuerdo) {
+    
+    const imagenURL = recuerdo.img; 
+
+    // 1. Detener el Carrusel en la Foto de Recuerdo del Día
+    carruselFondo.style.backgroundImage = `url('${imagenURL}')`;
+    carruselFondo.style.filter = 'brightness(0.5)'; // Oscurece el fondo para que el texto destaque
+    
+    // 2. Llenar y mostrar el contenido del Recuerdo
+    tituloRecuerdo.textContent = recuerdo.titulo || `¡Recuerdo del Día ${diaActual}!`;
+    textoRecuerdo.textContent = recuerdo.texto;
+    
+    // 3. Mostrar la caja del Recuerdo
+    memoriaRecuerdo.style.display = 'flex'; 
+}
+
+// 4. Función de finalización (¡Muestra la página final correctamente!)
+function finalizarConteo() {
+    displayContador.textContent = `¡365 Días Juntos!`;
+    displayContador.style.color = '#ff69b4';
+    
+    // Ocultar la sección entera del contador
+    seccionContador.style.display = 'none';
+    
+    // Mostrar el contenido final
+    contenidoFinal.style.display = 'block';
+}
+
+// --- ARRANQUE INICIAL (Función de Carga Segura) ---
+function inicializarApp() {
+    // Aseguramos que la página final esté OCULTA y la sección de contador VISIBLE al inicio
+    contenidoFinal.style.display = 'none'; 
+    seccionContador.style.display = 'block';
+
+    // Inicia el proceso de conteo y carrusel
+    iniciarConteoPrincipal(); 
+}
+
+// Llamada a la función de Carga Segura
+window.onload = inicializarApp;
