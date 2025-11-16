@@ -95,10 +95,26 @@ body {
     align-items: center;
 }
 
-/* Estilo de la imagen de recuerdo (debe ser la misma que el fondo del carrusel, pero con texto encima) */
+/* 3. Estilo de la imagen de recuerdo (SOLUCIÓN DEL RECORTE) */
 #imagen-recuerdo {
     display: none; /* Ocultamos la etiqueta IMG; solo usamos el fondo del carrusel */
 }
+
+#memoria-recuerdo img {
+    /* La imagen que se vería dentro de la caja si no estuviera oculta */
+    max-height: 80%; /* Le damos más espacio para que se vea */
+    max-width: 90%;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    
+    /* PROPIEDAD CLAVE: Asegura que la imagen se vea completa sin recortar */
+    object-fit: contain; 
+    width: auto; 
+    height: auto; 
+}
+
 
 #memoria-recuerdo h3 { 
     margin-top: 5px; 
