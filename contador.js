@@ -60,9 +60,9 @@ function iniciarCarruselFondo() {
 }
 
 // 2. Lógica del Bucle (Sacada del setInterval para controlarla mejor)
-function manejarBucle() {
-    if (recuerdosEspeciales[diaActual]) {
-        // Detener todo el bucle principal y la rotación del carrusel
+function manejarBucle() { 
+        if (recuerdosEspeciales[diaActual]) {
+        // --- PAUSA INICIADA ---
         clearInterval(intervaloContador); 
         clearInterval(carruselIntervalo); 
         
@@ -72,7 +72,7 @@ function manejarBucle() {
         setTimeout(() => {
             memoriaRecuerdo.style.display = 'none';
             
-            // Incrementamos el día para que el siguiente ciclo comience correctamente
+            // ¡CORRECCIÓN FINAL!: Incrementamos el día AQUÍ
             diaActual++; 
             
             // Reiniciar el bucle de temporizador
@@ -87,13 +87,14 @@ function manejarBucle() {
         finalizarConteo();
         return;
     } else {
-        // Bucle normal: Muestra el día y LUEGO incrementa para el próximo ciclo
+        // --- BUCLE NORMAL ---
+        // 1. Muestra el día actual
         displayContador.textContent = `Día ${diaActual}`;
+        
+        // 2. Pasa al día siguiente (Para la próxima ejecución del bucle)
         diaActual++; 
     }
 }
-
-
 // 3. Función principal para el conteo de días (Ahora solo inicia el setInterval)
 function iniciarConteoPrincipal() {
     contenidoFinal.style.display = 'none'; 
