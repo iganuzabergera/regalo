@@ -309,3 +309,71 @@ iframe {
     background-color: #ff69b4; /* Color de tu contador */
     color: white;
 }
+
+/* --- ESTILOS PARA EL ICONO DE CARTA --- */
+#icono-carta {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s;
+}
+
+#icono-carta:hover {
+    transform: scale(1.1);
+}
+
+#icono-carta svg {
+    color: #ff69b4; /* Color de tu contador/tema */
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+.punto-nuevo {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 10px;
+    height: 10px;
+    background-color: #ff4444; /* Rojo para el aviso */
+    border-radius: 50%;
+    border: 1px solid white;
+    z-index: 11;
+}
+
+/* --- ESTILOS PARA LA PÁGINA DE LA CARTA --- */
+#seccion-carta {
+    /* Estilo para que la carta parezca un documento limpio */
+    text-align: left;
+    padding: 30px 40px;
+    line-height: 1.6;
+}
+
+.titulo-carta {
+    font-size: 2em;
+    color: #ff69b4;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.fecha-carta {
+    text-align: right;
+    font-style: italic;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.texto-carta p {
+    margin-bottom: 1.5em;
+    font-size: 1.1em;
+}
+
+.firma-carta {
+    margin-top: 40px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: right;
+    font-size: 1.2em;
+}

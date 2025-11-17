@@ -169,6 +169,33 @@ function cerrarModal() {
 // Asegúrate de que el navegador conozca la función al cerrar el modal
 window.cerrarModal = cerrarModal; // Hace la función global
 
+// --- FUNCIONES DE NAVEGACIÓN ---
+
+function mostrarCarta() {
+    const contenidoFinal = document.getElementById('contenido-final');
+    const seccionCarta = document.getElementById('seccion-carta');
+    
+    // Oculta la página principal y muestra la carta
+    contenidoFinal.style.display = 'none';
+    seccionCarta.style.display = 'block';
+    
+    // Opcional: Ocultamos el punto rojo una vez que se lee
+    document.querySelector('.punto-nuevo').style.display = 'none';
+}
+
+function volverAContenidoFinal() {
+    const contenidoFinal = document.getElementById('contenido-final');
+    const seccionCarta = document.getElementById('seccion-carta');
+    
+    // Oculta la carta y muestra la página principal
+    seccionCarta.style.display = 'none';
+    contenidoFinal.style.display = 'block';
+}
+
+// Hacemos las funciones globales para que funcionen con el onclick en el HTML
+window.mostrarCarta = mostrarCarta;
+window.volverAContenidoFinal = volverAContenidoFinal;
+
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar las variables DOM una vez que el documento está listo
     displayContador = document.getElementById('contador-display');
