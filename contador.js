@@ -25,7 +25,7 @@ let indiceCarrusel = 0;
 const imagenesCarrusel = 20; 
 const duracionCarrusel = 100; // 100ms por foto
 
-// Variables globales para los elementos del DOM (se inicializan en DOMContentLoaded)
+// Variables globales para los elementos del DOM (serán inicializadas en DOMContentLoaded)
 let displayContador;
 let contenidoFinal;
 let seccionContador;
@@ -46,7 +46,6 @@ function actualizarCarrusel() {
     
     // Aplica la imagen de fondo
     carruselFondo.style.backgroundImage = `url('${nombreArchivo}')`;
-    // Filtro de brillo se quita en esta versión (solución al problema de 'oscuro')
 }
 
 // 1. Inicia la rotación rápida de las 20 fotos
@@ -91,7 +90,7 @@ function iniciarConteoPrincipal() {
             finalizarConteo();
             return;
         } else {
-            // CONTINUAR conteo normal
+            // CORRECCIÓN SINCRONIZACIÓN: Mostrar el día ANTES de incrementar
             displayContador.textContent = `Día ${diaActual}`;
             diaActual++;
         }
@@ -103,17 +102,11 @@ function mostrarRecuerdo(recuerdo) {
     
     const imagenURL = recuerdo.img; 
 
-    // 1. Detener el Carrusel y usar la foto del recuerdo como fondo
+    // 1. Detener el Carrusel en la Foto de Recuerdo del Día
     carruselFondo.style.backgroundImage = `url('${imagenURL}')`;
-    // Se elimina el filtro de brillo para que la imagen no esté oscura
-    
-    // 2. Llenar el contenido del Recuerdo (¡Orden de llenado para el flexbox!)
-    // El orden en que se añaden los elementos al DOM es el que respeta el CSS flex-direction: column
-    
-    // Llenamos la imagen primero (se escalará con object-fit: contain)
-    document.getElementById('imagen-recuerdo').src = imagenURL; 
-    
-    // Llenamos y agregamos el título y el texto debajo de la imagen
+    carruselFondo.style.filter = 'brightness(0.5)'; // Oscurece ligeramente el fondo
+
+    // 2. Llenar el contenido del Recuerdo (¡El texto va DENTRO, debajo de la imagen conceptual!)
     tituloRecuerdo.textContent = recuerdo.titulo || `¡Recuerdo del Día ${diaActual}!`;
     textoRecuerdo.textContent = recuerdo.texto;
     

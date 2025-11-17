@@ -98,7 +98,7 @@ body {
     margin-top: 10px;
     
     /* CORRECCIÓN CLAVE: Muestra la imagen real del día */
-    display: block !important; 
+    display: none !important; 
     
     /* PROPIEDAD CLAVE: Asegura que la imagen se vea completa sin recortar */
     object-fit: contain; 
@@ -108,9 +108,13 @@ body {
 }
 
 #memoria-recuerdo h3 { 
-    margin-top: 5px; 
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
-    color: #ff69b4; /* Color de tu contador */
+    margin-top: auto; /* Empuja el título hacia abajo, justo por encima del texto */
+    color: #ff69b4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Alinea el contenido (h3 y p) a la parte INFERIOR */
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 #memoria-recuerdo p { 
     margin-bottom: 5px; 
