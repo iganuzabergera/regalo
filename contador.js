@@ -77,8 +77,7 @@ function iniciarConteoPrincipal() {
             // Reanudar el contador y el carrusel después de la duración de la pausa
             setTimeout(() => {
                 memoriaRecuerdo.style.display = 'none';
-                carruselFondo.style.filter = 'none';
-                
+                                
                 // 1. Incrementamos el día y 
                 diaActual++; 
                 // 2. Reiniciamos el intervalo para el siguiente ciclo
@@ -105,7 +104,7 @@ function mostrarRecuerdo(recuerdo) {
 
     // 1. Detener el Carrusel en la Foto de Recuerdo del Día
     carruselFondo.style.backgroundImage = `url('${imagenURL}')`;
-    carruselFondo.style.filter = 'brightness(0.5)'; // Oscurece el fondo para que el texto destaque
+    
     
     // 2. Llenar y mostrar el contenido del Recuerdo
     tituloRecuerdo.textContent = recuerdo.titulo || `¡Recuerdo del Día ${diaActual}!`;

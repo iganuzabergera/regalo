@@ -75,7 +75,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente para texto */
+    /* 3. CORRECCIÓN: Eliminamos el fondo oscuro aquí. Lo haremos invisible. */
+    background-color: rgba(255, 255, 255, 0); 
     color: white;
     display: none; /* OCULTO POR DEFECTO (JavaScript lo muestra) */
     z-index: 20; /* UNA CAPA POR ENCIMA DEL CARRUSEL */
@@ -83,42 +84,46 @@ body {
     box-sizing: border-box;
     text-align: center;
 
-    /* SOLUCIÓN ALINEACIÓN DEL TEXTO (Imagen arriba, Texto debajo) */
+    /* CORRECCIÓN: Alineación para texto DEBAJO de la imagen */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Alinea el contenido desde ARRIBA */
+    justify-content: flex-start; /* Alinea contenido desde ARRIBA */
     align-items: center;
+    /* La imagen ocupará el espacio de arriba, y el texto el de abajo */
 }
 
 /* 3. Estilo de la imagen de recuerdo (SOLUCIÓN AL RECORTE Y ESCALADO) */
 #imagen-recuerdo {
-    max-height: 80%; /* Le damos más espacio para que se vea */
+    max-height: 80%; 
     max-width: 90%;
     border-radius: 8px;
     margin-top: 10px;
+    
+    /* CORRECCIÓN CLAVE: Muestra la imagen real del día */
+    display: block !important; 
     
     /* PROPIEDAD CLAVE: Asegura que la imagen se vea completa sin recortar */
     object-fit: contain; 
     width: auto; 
     height: auto; 
-    
-    /* Nota: Esta imagen ya está oculta en tesoro.html, pero la dejamos por si se usa */
-    display: block; 
-    margin-bottom: 10px; /* Espacio para el texto debajo */
+    margin-bottom: 15px; /* Espacio entre la imagen y el texto */
 }
 
 #memoria-recuerdo h3 { 
     margin-top: 5px; 
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+    color: #ff69b4; /* Color de tu contador */
 }
 #memoria-recuerdo p { 
     margin-bottom: 5px; 
     font-size: 1.1em;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+    color: white;
 }
 
 
 /* --- ESTILOS ANTIGUOS (Cerradura y Página Final) --- */
+/* Se mantienen el resto de estilos... */
 
 /* Estilos de la Casilla de Contraseña */
 #casillaClave {
@@ -250,3 +255,5 @@ iframe {
         max-width: 800px;
     }
 }
+```
+
