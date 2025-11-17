@@ -104,8 +104,7 @@ function mostrarRecuerdo(recuerdo) {
 
     // 1. Detener el Carrusel en la Foto de Recuerdo del Día
     carruselFondo.style.backgroundImage = `url('${imagenURL}')`;
-    carruselFondo.style.filter = 'brightness(0.5)'; // Oscurece ligeramente el fondo
-    
+        
     // 2. Llenar el contenido del Recuerdo
     tituloRecuerdo.textContent = recuerdo.titulo || `¡Recuerdo del Día ${diaActual}!`;
     textoRecuerdo.textContent = recuerdo.texto;
