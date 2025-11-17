@@ -3,19 +3,19 @@
 // Paso 1: Mapear los días especiales a sus recuerdos
 const recuerdosEspeciales = {
     // CLAVE: El número del día | VALOR: El objeto con la info
-    "1": { img: "14-12-2024.jpg", texto: "¡Día 1! Empezamos esta increíble aventura juntos. ¡A por más!", duracion: 4000, },
-    "40": { img: "22-01-2025.jpg", texto: "Día 40: Primeros momentos inolvidables. Gracias por estar aquí.", duracion: 4000,},
-    "57": { img: "08-02-2025.3.jpg", texto: "Día 57: La noche de pizza y peli que terminó siendo la mejor.", duracion: 4000, },
-    "80": { img: "03-03-2025.jpg", texto: "Eres la mejor persona que he conocido. Te amo.", duracion: 4000, },
-    "133": { img: "25-04-2025.2.jpg", texto: "Primer viaje a la montaña. ¡Qué vistas y qué compañía!", duracion: 4000,},
-    "199": { img: "30-06-2025.jpg", texto: "Recordando esa cena que salió mal pero que nos hizo reír tanto.", duracion: 4000, },
-    "231": { img: "01-08-2025.1.jpg", texto: "La celebración más sencilla es la que más me gustó.", duracion: 4000,},
-    "295": { img: "04-10-2025.1.jpg", texto: "Sigues siendo mi persona favorita. Te quiero.", duracion: 4000,},
+    "1": { img: "14-12-2024.jpg", texto: "¡Día 1! Empezamos esta increíble aventura juntos. ¡A por más!", duracion: 4000, titulo: "Nuestro Comienzo" },
+    "40": { img: "22-01-2025.jpg", texto: "Día 40: Primeros momentos inolvidables. Gracias por estar aquí.", duracion: 4000, titulo: "40 Días de Felicidad" },
+    "57": { img: "08-02-2025.3.jpg", texto: "Día 57: La noche de pizza y peli que terminó siendo la mejor.", duracion: 4000, titulo: "Nuestra Noche Perfecta" },
+    "80": { img: "03-03-2025.jpg", texto: "Eres la mejor persona que he conocido. Te amo.", duracion: 4000, titulo: "Amor Genuino" },
+    "133": { img: "25-04-2025.2.jpg", texto: "Primer viaje a la montaña. ¡Qué vistas y qué compañía!", duracion: 4000, titulo: "Aventuras Juntos" },
+    "199": { img: "30-06-2025.jpg", texto: "Recordando esa cena que salió mal pero que nos hizo reír tanto.", duracion: 4000, titulo: "Risas Inolvidables" },
+    "231": { img: "01-08-2025.1.jpg", texto: "La celebración más sencilla es la que más me gustó.", duracion: 4000, titulo: "Momentos Íntimos" },
+    "295": { img: "04-10-2025.1.jpg", texto: "Sigues siendo mi persona favorita. Te quiero.", duracion: 4000, titulo: "¡Te amo mucho!" },
     "365": { img: "foto-final-1.jpg", texto: "¡Llegamos al final! Pero este es solo el comienzo. Te amo.", duracion: 7000, titulo: "🎉 ¡Feliz Aniversario! 🎉" },
 };
 
 const diaFinal = 365;
-let diaActual = 1; // El conteo siempre empieza en 1
+let diaActual = 1; 
 let intervaloContador; 
 let carruselIntervalo; 
 
@@ -59,52 +59,62 @@ function iniciarCarruselFondo() {
     carruselIntervalo = setInterval(actualizarCarrusel, duracionCarrusel); 
 }
 
-// 2. Función principal para el conteo de días
-function iniciarConteoPrincipal(diaInicio=diaActual) {
+// 2. Lógica del Bucle (Sacada del setInterval para controlarla mejor)
+function manejarBucle() {
+    if (recuerdosEspeciales[diaActual]) {
+        // Detener todo el bucle principal y la rotación del carrusel
+        clearInterval(intervaloContador); 
+        clearInterval(carruselIntervalo); 
+        
+        mostrarRecuerdo(recuerdosEspeciales[diaActual]);
+        
+        // Reanudar el contador y el carrusel después de la duración de la pausa
+        setTimeout(() => {
+            memoriaRecuerdo.style.display = 'none';
+            
+            // Incrementamos el día para que el siguiente ciclo comience correctamente
+            diaActual++; 
+            
+            // Reiniciar el bucle de temporizador
+            iniciarConteoPrincipal(); 
+            
+        }, recuerdosEspeciales[diaActual].duracion);
+        
+    } else if (diaActual > diaFinal) {
+        // Verificar FINAL
+        clearInterval(intervaloContador);
+        clearInterval(carruselIntervalo);
+        finalizarConteo();
+        return;
+    } else {
+        // Bucle normal: Muestra el día y LUEGO incrementa para el próximo ciclo
+        displayContador.textContent = `Día ${diaActual}`;
+        diaActual++; 
+    }
+}
+
+
+// 3. Función principal para el conteo de días (Ahora solo inicia el setInterval)
+function iniciarConteoPrincipal() {
     contenidoFinal.style.display = 'none'; 
     seccionContador.style.display = 'block';
 
     // INICIAR EL CARRUSEL RÁPIDO
     iniciarCarruselFondo(); 
 
-    intervaloContador = setInterval(() => {
-        
-        if (recuerdosEspeciales[diaActual]) {
-            clearInterval(intervaloContador); 
-            clearInterval(carruselIntervalo); 
-            
-            mostrarRecuerdo(recuerdosEspeciales[diaActual]);
-            
-            // Reanudar el contador y el carrusel después de la duración de la pausa
-            setTimeout(() => {
-                memoriaRecuerdo.style.display = 'none';
-                
-                // ¡CORRECCIÓN CRÍTICA!: Incrementar el día ANTES de reiniciar el ciclo
-                diaActual++; 
-                iniciarConteoPrincipal(diaActual); 
-            }, recuerdosEspeciales[diaActual].duracion);
-            
-        } else if (diaActual > diaFinal) {
-            clearInterval(intervaloContador);
-            clearInterval(carruselIntervalo);
-            finalizarConteo();
-            return;
-        } else {
-            // MOSTRAR el día y LUEGO incrementar para el PRÓXIMO ciclo
-            displayContador.textContent = `Día ${diaActual}`;
-            diaActual++; // El incremento siempre ocurre al final del ciclo
-        }
-    }, 50); // Velocidad del conteo
+    // Iniciar el bucle principal que chequea el día
+    intervaloContador = setInterval(manejarBucle, 50); 
 }
 
-// 3. Función para mostrar la imagen y el texto especial
+// 4. Función para mostrar la imagen y el texto especial
 function mostrarRecuerdo(recuerdo) {
     
     const imagenURL = recuerdo.img; 
 
     // 1. Detener el Carrusel en la Foto de Recuerdo del Día
     carruselFondo.style.backgroundImage = `url('${imagenURL}')`;
-        
+    carruselFondo.style.filter = 'brightness(0.5)'; // Oscurece ligeramente el fondo (puedes eliminar esta línea si no quieres oscurecimiento)
+    
     // 2. Llenar el contenido del Recuerdo
     tituloRecuerdo.textContent = recuerdo.titulo || `¡Recuerdo del Día ${diaActual}!`;
     textoRecuerdo.textContent = recuerdo.texto;
@@ -113,7 +123,7 @@ function mostrarRecuerdo(recuerdo) {
     memoriaRecuerdo.style.display = 'flex'; 
 }
 
-// 4. Función de finalización (¡Muestra la página final correctamente!)
+// 5. Función de finalización (¡Muestra la página final correctamente!)
 function finalizarConteo() {
     displayContador.textContent = `¡365 Días Juntos!`;
     displayContador.style.color = '#ff69b4';
