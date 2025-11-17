@@ -3,19 +3,19 @@
 // Paso 1: Mapear los días especiales a sus recuerdos
 const recuerdosEspeciales = {
     // CLAVE: El número del día | VALOR: El objeto con la info
-    "1": { img: "14-12-2024.jpg", texto: "¡Día 1! Empezamos esta increíble aventura juntos. ¡A por más!", duracion: 4000,},
-    "40": { img: "22-01-2025.jpg", texto: "Día 40: Primeros momentos inolvidables. Gracias por estar aquí.", duracion: 4000,},
-    "57": { img: "08-02-2025.3.jpg", texto: "Día 57: La noche de pizza y peli que terminó siendo la mejor.", duracion: 4000,},
-    "58": { img: "09-02-2025.jpg", texto: "Día 57: La noche de pizza y peli que terminó siendo la mejor.", duracion: 4000,},
-    "80": { img: "03-03-2025.jpg", texto: "Eres la mejor persona que he conocido. Te amo.", duracion: 4000,},
-    "133": { img: "25-04-2025.2.jpg", texto: "Primer viaje a la montaña. ¡Qué vistas y qué compañía!", duracion: 4000, },
-    "199": { img: "30-06-2025.jpg", texto: "Recordando esa cena que salió mal pero que nos hizo reír tanto.", duracion: 4000,},
-    "231": { img: "31-07-2025.jpg", texto: "La celebración más sencilla es la que más me gustó.", duracion: 4000, },
-    "232": { img: "01-08-2025.1.jpg", texto: "La celebración más sencilla es la que más me gustó.", duracion: 4000, },
-    "232": { img: "02-08-2025.4.jpg", texto: "La celebración más sencilla es la que más me gustó.", duracion: 4000, },
-    "271": { img: "10-09-2025.jpg", texto: "La celebración más sencilla es la que más me gustó.", duracion: 4000, },
-    "295": { img: "04-10-2025.1.jpg", texto: "Sigues siendo mi persona favorita. Te quiero.", duracion: 4000,},
-    "365": { img: "foto-final-1.jpg", texto: "¡Llegamos al final! Pero este es solo el comienzo. Te amo.", duracion: 7000, titulo: "🎉 ¡Feliz Aniversario! 🎉" },
+    "1": { img: "14-12-2024.jpg", texto: "Gracias por venir a Pamplona y 'ayudarme' a dar el paso", duracion: 4000,},
+    "40": { img: "22-01-2025.jpg", texto: "Gracias por todas las videollamadas", duracion: 4000,},
+    "57": { img: "08-02-2025.3.jpg", texto: "Aqui por Barcelona, segunda vez que nos veiamos", duracion: 4000,},
+    "58": { img: "09-02-2025.jpg", texto: "De camino a la estacion, cada reencuentro tiene su despedida", duracion: 4000,},
+    "80": { img: "03-03-2025.jpg", texto: "Gracias por los paseos por fatima despues de haber rezado a la Virgen", duracion: 4000,},
+    "133": { img: "25-04-2025.2.jpg", texto: "De nuevo por Barna, que planazo fue ver a la gente correr", duracion: 4000, },
+    "199": { img: "30-06-2025.jpg", texto: "Los dias de la universidad de verano...", duracion: 4000,},
+    "231": { img: "31-07-2025.jpg", texto: "Ya de viaje por Francia", duracion: 4000, },
+    "232": { img: "01-08-2025.1.jpg", texto: "La mejor peregrinacion de todas", duracion: 4000, },
+    "232": { img: "02-08-2025.4.jpg", texto: "Una de las fotos que mas me gusta", duracion: 4000, },
+    "271": { img: "10-09-2025.jpg", texto: "Y vuelta a las videollamadas", duracion: 4000, },
+    "295": { img: "04-10-2025.1.jpg", texto: "En esta foto sales guapisima", duracion: 4000,},
+    "365": { img: "carrusel-01.jpg", texto: "Y al final no fue todo una tonteria", duracion: 5500, titulo: "Feliz aniversario Marta, te quiero" },
 };
 
 const diaFinal = 365;
