@@ -346,6 +346,7 @@ iframe {
 /* --- ESTILOS PARA LA PÁGINA DE LA CARTA --- */
 #seccion-carta {
     /* Estilo para que la carta parezca un documento limpio */
+    display: none
     text-align: left;
     padding: 30px 40px;
     line-height: 1.6;
