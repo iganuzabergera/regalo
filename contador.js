@@ -126,6 +126,17 @@ function finalizarConteo() {
     // Mostrar el contenido final
     contenidoFinal.style.display = 'block';
 }
+// --- FUNCIÓN DE PRECARGA DE IMÁGENES ---
+function precargarCarrusel() {
+    for (let i = 1; i <= 20; i++) { // Asumiendo 20 fotos
+        const indice = i < 10 ? `0${i}` : `${i}`;
+        const img = new Image();
+        img.src = `carrusel-${indice}.jpg`; 
+        // El navegador ahora descarga la imagen en segundo plano
+    }
+}
+// Llamar a la función al inicio de todo
+precargarCarrusel();
 
 // --- ARRANQUE INICIAL (El Listener de Eventos más seguro) ---
 
