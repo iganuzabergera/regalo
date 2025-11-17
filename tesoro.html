@@ -41,35 +41,15 @@
             <span class="punto-nuevo"></span>
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" viewBox="0 0 16 16">
               <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.035 6.88L8 10.05 1.035 12.28a1 1 0 0 0 .584.721H13.38a1 1 0 0 0 .605-.721M1 11.105l4.708-2.893L1 5.383z"/>
-            </svg>
+             </svg>
         </div>
     
-        <div class="seccion-bienvenida animacion-aparecer">
-        
+               
         <div class="seccion-bienvenida animacion-aparecer">
             <h1>🎉 ¡Y así llegamos al final! 🎉</h1>
             <p>Gracias por todos estos dias contigo, es el primer año pero no el ultimo</p>
         </div>
-        <!-- NUEVA SECCIÓN OCULTA: LA CARTA -->
-        <div id="seccion-carta" style="display: none;" class="seccion-base">
-    
-            <h1 class="titulo-carta">Mi Carta de Aniversario</h1>
-            <p class="fecha-carta">17 de Noviembre de 2025</p>
-
-            <div class="texto-carta">
-                <p>Mi amor,</p>
-                <p>Si estás leyendo esto, significa que has completado el contador y has revivido nuestro primer año juntos. Ver cada día pasar de nuevo me recordó lo afortunado que soy de tenerte. Quiero que esta carta sea el recuerdo permanente de lo mucho que te amo y de todo lo que hemos construido.</p>
         
-                <p>Desde el Día 1, supe que nuestra historia sería especial. Gracias por tu paciencia, tu risa, y por hacer que hasta los días más sencillos sean una aventura. Hemos creado algo hermoso, y estoy emocionado por ver todo lo que nos depara el próximo año.</p>
-
-                <p>Te amo más de lo que las palabras pueden expresar.</p>
-                <p class="firma-carta">Con todo mi cariño,</p>
-            </div>
-            <!-- Botón para volver a la página principal -->
-            <button onclick="volverAContenidoFinal()">Volver al Regalo</button>
-</div>
-
-<script src="contador.js"></script>
         <div class="seccion-video animacion-deslizar">
             <h2>Un Mensaje Especial (¡Mira hasta el final!)</h2>
             <iframe width="100%" height="315" src="correr.mp4" frameborder="0" allowfullscreen></iframe>
@@ -83,6 +63,26 @@
 
     </div>
     
+<!-- NUEVA SECCIÓN OCULTA: LA CARTA -->
+    
+    <div id="seccion-carta" style="display: none;" class="seccion-base">
+    
+        <h1 class="titulo-carta">Mi Carta de Aniversario</h1>
+        <p class="fecha-carta">17 de Noviembre de 2025</p>
+
+        <div class="texto-carta">
+            <p>Mi amor,</p>
+            <p>Si estás leyendo esto, significa que has completado el contador y has revivido nuestro primer año juntos. Ver cada día pasar de nuevo me recordó lo afortunado que soy de tenerte. Quiero que esta carta sea el recuerdo permanente de lo mucho que te amo y de todo lo que hemos construido.</p>
+        
+            <p>Desde el Día 1, supe que nuestra historia sería especial. Gracias por tu paciencia, tu risa, y por hacer que hasta los días más sencillos sean una aventura. Hemos creado algo hermoso, y estoy emocionado por ver todo lo que nos depara el próximo año.</p>
+
+            <p>Te amo más de lo que las palabras pueden expresar.</p>
+            <p class="firma-carta">Con todo mi cariño,</p>
+        </div>
+        <button onclick="volverAContenidoFinal()">Volver al Regalo</button> 
+    </div>
+
+
     <div id="aviso-modal" class="modal-oculto">
         <div class="modal-contenido">
             <span class="cerrar-modal" onclick="cerrarModal()">&times;</span>

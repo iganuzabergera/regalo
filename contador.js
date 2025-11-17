@@ -167,7 +167,7 @@ function cerrarModal() {
 }
 
 // Asegúrate de que el navegador conozca la función al cerrar el modal
-window.cerrarModal = cerrarModal; // Hace la función global
+
 
 // --- FUNCIONES DE NAVEGACIÓN ---
 
@@ -195,6 +195,7 @@ function volverAContenidoFinal() {
 // Hacemos las funciones globales para que funcionen con el onclick en el HTML
 window.mostrarCarta = mostrarCarta;
 window.volverAContenidoFinal = volverAContenidoFinal;
+window.cerrarModal = cerrarModal; // Hace la función global
 
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar las variables DOM una vez que el documento está listo
