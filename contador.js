@@ -34,17 +34,21 @@ let memoriaRecuerdo;
 let tituloRecuerdo;
 let textoRecuerdo;
 
+// Función para precargar imágenes del carrusel (Soluciona el arranque lento)
+function precargarCarrusel() {
+    for (let i = 1; i <= imagenesCarrusel; i++) {
+        const indice = i < 10 ? `0${i}` : `${i}`;
+        const img = new Image();
+        img.src = `carrusel-${indice}.jpg`; 
+    }
+}
 
 // Función para cambiar a la siguiente foto del carrusel
 function actualizarCarrusel() {
-    // Ciclo para ir de 1 a 20
     indiceCarrusel = (indiceCarrusel % imagenesCarrusel) + 1; 
-
-    // Corrección para asegurar el formato 'carrusel-01.jpg'
     const indice = indiceCarrusel < 10 ? `0${indiceCarrusel}` : `${indiceCarrusel}`;
     const nombreArchivo = `carrusel-${indice}.jpg`;
     
-    // Aplica la imagen de fondo
     carruselFondo.style.backgroundImage = `url('${nombreArchivo}')`;
 }
 
@@ -52,10 +56,7 @@ function actualizarCarrusel() {
 function iniciarCarruselFondo() {
     memoriaRecuerdo.style.display = 'none';
 
-    // Ejecuta la primera foto inmediatamente (Soluciona el problema del blanco)
-    actualizarCarrusel(); 
-
-    // Luego, configura el intervalo para la rotación
+    actualizarCarrusel(); // Ejecuta la primera foto inmediatamente (Soluciona el problema del blanco)
     carruselIntervalo = setInterval(actualizarCarrusel, duracionCarrusel); 
 }
 
@@ -81,7 +82,7 @@ function iniciarConteoPrincipal() {
                 
                 // Reiniciar el ciclo de conteo (que reinicia el carrusel)
                 iniciarConteoPrincipal(); 
-                diaActual++; 
+                diaActual++; // El incremento final
             }, recuerdosEspeciales[diaActual].duracion);
             
         } else if (diaActual > diaFinal) {
@@ -92,7 +93,7 @@ function iniciarConteoPrincipal() {
         } else {
             // CORRECCIÓN SINCRONIZACIÓN: Mostrar el día ANTES de incrementar
             displayContador.textContent = `Día ${diaActual}`;
-            diaActual++;
+            diaActual++; // Se incrementa al final del ciclo
         }
     }, 50); // Velocidad del conteo
 }
@@ -104,9 +105,9 @@ function mostrarRecuerdo(recuerdo) {
 
     // 1. Detener el Carrusel en la Foto de Recuerdo del Día
     carruselFondo.style.backgroundImage = `url('${imagenURL}')`;
-    carruselFondo.style.filter = 'brightness(0.5)'; // Oscurece ligeramente el fondo
-
-    // 2. Llenar el contenido del Recuerdo (¡El texto va DENTRO, debajo de la imagen conceptual!)
+    // ELIMINADA LA LÍNEA DEL FILTRO: carruselFondo.style.filter = 'brightness(0.5)';
+    
+    // 2. Llenar el contenido del Recuerdo
     tituloRecuerdo.textContent = recuerdo.titulo || `¡Recuerdo del Día ${diaActual}!`;
     textoRecuerdo.textContent = recuerdo.texto;
     
@@ -127,6 +128,9 @@ function finalizarConteo() {
 }
 
 // --- ARRANQUE INICIAL (El Listener de Eventos más seguro) ---
+
+// Precarga antes de que el DOM esté listo
+precargarCarrusel(); 
 
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar las variables DOM una vez que el documento está listo
