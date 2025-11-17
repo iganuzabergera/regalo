@@ -3,6 +3,7 @@
 // Paso 1: Mapear los días especiales a sus recuerdos
 const recuerdosEspeciales = {
     // CLAVE: El número del día | VALOR: El objeto con la info
+    // Asegúrate de que las imágenes estén subidas a GitHub (ej: "14-12-2024.jpg")
     "1": { img: "14-12-2024.jpg", texto: "¡Día 1! Empezamos esta increíble aventura juntos. ¡A por más!", duracion: 4000, titulo: "Nuestro Comienzo" },
     "40": { img: "22-01-2025.jpg", texto: "Día 40: Primeros momentos inolvidables. Gracias por estar aquí.", duracion: 4000, titulo: "40 Días de Felicidad" },
     "57": { img: "08-02-2025.3.jpg", texto: "Día 57: La noche de pizza y peli que terminó siendo la mejor.", duracion: 4000, titulo: "Nuestra Noche Perfecta" },
@@ -24,28 +25,35 @@ let indiceCarrusel = 0;
 const imagenesCarrusel = 20; 
 const duracionCarrusel = 100; // 100ms por foto
 
-// Variables globales del DOM (Se inicializarán después de la carga)
-let displayContador, contenidoFinal, seccionContador, carruselFondo, memoriaRecuerdo, tituloRecuerdo, textoRecuerdo;
+// Variables globales para los elementos del DOM (se inicializan en DOMContentLoaded)
+let displayContador;
+let contenidoFinal;
+let seccionContador;
+let carruselFondo;
+let memoriaRecuerdo;
+let tituloRecuerdo;
+let textoRecuerdo;
 
 
-// Función para cambiar a la siguiente foto del carrusel (EVITA EL BLANCO)
+// Función para cambiar a la siguiente foto del carrusel
 function actualizarCarrusel() {
     // Ciclo para ir de 1 a 20
     indiceCarrusel = (indiceCarrusel % imagenesCarrusel) + 1; 
 
     // Corrección para asegurar el formato 'carrusel-01.jpg'
-    const nombreArchivo = indiceCarrusel < 10 ? `carrusel-0${indiceCarrusel}.jpg` : `carrusel-${indiceCarrusel}.jpg`;
+    const indice = indiceCarrusel < 10 ? `0${indiceCarrusel}` : `${indiceCarrusel}`;
+    const nombreArchivo = `carrusel-${indice}.jpg`;
     
     // Aplica la imagen de fondo
     carruselFondo.style.backgroundImage = `url('${nombreArchivo}')`;
-    carruselFondo.style.filter = 'none'; 
+    // Filtro de brillo se quita en esta versión (solución al problema de 'oscuro')
 }
 
 // 1. Inicia la rotación rápida de las 20 fotos
 function iniciarCarruselFondo() {
     memoriaRecuerdo.style.display = 'none';
 
-    // Ejecuta la primera foto inmediatamente (SOLUCIÓN AL BLANCO)
+    // Ejecuta la primera foto inmediatamente (Soluciona el problema del blanco)
     actualizarCarrusel(); 
 
     // Luego, configura el intervalo para la rotación
@@ -54,9 +62,6 @@ function iniciarCarruselFondo() {
 
 // 2. Función principal para el conteo de días
 function iniciarConteoPrincipal() {
-    // Es llamada desde el reinicio y desde el DOMContentLoaded
-    
-    // CORRECCIÓN: Asegura que la página final esté OCULTA al inicio
     contenidoFinal.style.display = 'none'; 
     seccionContador.style.display = 'block';
 
@@ -65,9 +70,6 @@ function iniciarConteoPrincipal() {
 
     intervaloContador = setInterval(() => {
         
-        // 1. Mostrar el día actual ANTES de chequear la pausa
-        displayContador.textContent = `Día ${diaActual}`;
-
         if (recuerdosEspeciales[diaActual]) {
             clearInterval(intervaloContador); 
             clearInterval(carruselIntervalo); 
@@ -77,12 +79,10 @@ function iniciarConteoPrincipal() {
             // Reanudar el contador y el carrusel después de la duración de la pausa
             setTimeout(() => {
                 memoriaRecuerdo.style.display = 'none';
-                                
-                // 1. Incrementamos el día y 
-                diaActual++; 
-                // 2. Reiniciamos el intervalo para el siguiente ciclo
-                iniciarConteoPrincipal(); 
                 
+                // Reiniciar el ciclo de conteo (que reinicia el carrusel)
+                iniciarConteoPrincipal(); 
+                diaActual++; 
             }, recuerdosEspeciales[diaActual].duracion);
             
         } else if (diaActual > diaFinal) {
@@ -91,7 +91,8 @@ function iniciarConteoPrincipal() {
             finalizarConteo();
             return;
         } else {
-            // CORRECCIÓN: Incrementamos el día al final del ciclo normal
+            // CONTINUAR conteo normal
+            displayContador.textContent = `Día ${diaActual}`;
             diaActual++;
         }
     }, 50); // Velocidad del conteo
@@ -102,11 +103,17 @@ function mostrarRecuerdo(recuerdo) {
     
     const imagenURL = recuerdo.img; 
 
-    // 1. Detener el Carrusel en la Foto de Recuerdo del Día
+    // 1. Detener el Carrusel y usar la foto del recuerdo como fondo
     carruselFondo.style.backgroundImage = `url('${imagenURL}')`;
+    // Se elimina el filtro de brillo para que la imagen no esté oscura
     
+    // 2. Llenar el contenido del Recuerdo (¡Orden de llenado para el flexbox!)
+    // El orden en que se añaden los elementos al DOM es el que respeta el CSS flex-direction: column
     
-    // 2. Llenar y mostrar el contenido del Recuerdo
+    // Llenamos la imagen primero (se escalará con object-fit: contain)
+    document.getElementById('imagen-recuerdo').src = imagenURL; 
+    
+    // Llenamos y agregamos el título y el texto debajo de la imagen
     tituloRecuerdo.textContent = recuerdo.titulo || `¡Recuerdo del Día ${diaActual}!`;
     textoRecuerdo.textContent = recuerdo.texto;
     
@@ -125,17 +132,6 @@ function finalizarConteo() {
     // Mostrar el contenido final
     contenidoFinal.style.display = 'block';
 }
-// --- FUNCIÓN DE PRECARGA DE IMÁGENES ---
-function precargarCarrusel() {
-    for (let i = 1; i <= 20; i++) { // Asumiendo 20 fotos
-        const indice = i < 10 ? `0${i}` : `${i}`;
-        const img = new Image();
-        img.src = `carrusel-${indice}.jpg`; 
-        // El navegador ahora descarga la imagen en segundo plano
-    }
-}
-// Llamar a la función al inicio de todo
-precargarCarrusel();
 
 // --- ARRANQUE INICIAL (El Listener de Eventos más seguro) ---
 
