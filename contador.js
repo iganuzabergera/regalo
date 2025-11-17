@@ -60,7 +60,7 @@ function iniciarCarruselFondo() {
 }
 
 // 2. Función principal para el conteo de días
-function iniciarConteoPrincipal() {
+function iniciarConteoPrincipal(diaInicio=diaActual) {
     contenidoFinal.style.display = 'none'; 
     seccionContador.style.display = 'block';
 
@@ -81,7 +81,7 @@ function iniciarConteoPrincipal() {
                 
                 // ¡CORRECCIÓN CRÍTICA!: Incrementar el día ANTES de reiniciar el ciclo
                 diaActual++; 
-                iniciarConteoPrincipal(); 
+                iniciarConteoPrincipal(diaActual); 
             }, recuerdosEspeciales[diaActual].duracion);
             
         } else if (diaActual > diaFinal) {
