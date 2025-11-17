@@ -61,6 +61,8 @@ function iniciarCarruselFondo() {
 
 // 2. Lógica del Bucle (Sacada del setInterval para controlarla mejor)
 function manejarBucle() { 
+        displayContador.textContent = `Día ${diaActual}`;
+
         if (recuerdosEspeciales[diaActual]) {
         // --- PAUSA INICIADA ---
         clearInterval(intervaloContador); 
@@ -89,7 +91,7 @@ function manejarBucle() {
     } else {
         // --- BUCLE NORMAL ---
         // 1. Muestra el día actual
-        displayContador.textContent = `Día ${diaActual}`;
+        
         
         // 2. Pasa al día siguiente (Para la próxima ejecución del bucle)
         diaActual++; 
@@ -114,7 +116,7 @@ function mostrarRecuerdo(recuerdo) {
 
     // 1. Detener el Carrusel en la Foto de Recuerdo del Día
     carruselFondo.style.backgroundImage = `url('${imagenURL}')`;
-    carruselFondo.style.filter = 'brightness(0.5)'; // Oscurece ligeramente el fondo (puedes eliminar esta línea si no quieres oscurecimiento)
+   
     
     // 2. Llenar el contenido del Recuerdo
     tituloRecuerdo.textContent = recuerdo.titulo || `¡Recuerdo del Día ${diaActual}!`;
