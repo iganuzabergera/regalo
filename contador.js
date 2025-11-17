@@ -3,7 +3,6 @@
 // Paso 1: Mapear los días especiales a sus recuerdos
 const recuerdosEspeciales = {
     // CLAVE: El número del día | VALOR: El objeto con la info
-    // Asegúrate de que las imágenes estén subidas a GitHub (ej: "14-12-2024.jpg")
     "1": { img: "14-12-2024.jpg", texto: "¡Día 1! Empezamos esta increíble aventura juntos. ¡A por más!", duracion: 4000, titulo: "Nuestro Comienzo" },
     "40": { img: "22-01-2025.jpg", texto: "Día 40: Primeros momentos inolvidables. Gracias por estar aquí.", duracion: 4000, titulo: "40 Días de Felicidad" },
     "57": { img: "08-02-2025.3.jpg", texto: "Día 57: La noche de pizza y peli que terminó siendo la mejor.", duracion: 4000, titulo: "Nuestra Noche Perfecta" },
@@ -16,7 +15,7 @@ const recuerdosEspeciales = {
 };
 
 const diaFinal = 365;
-let diaActual = 1;
+let diaActual = 1; // El conteo siempre empieza en 1
 let intervaloContador; 
 let carruselIntervalo; 
 
@@ -56,7 +55,7 @@ function actualizarCarrusel() {
 function iniciarCarruselFondo() {
     memoriaRecuerdo.style.display = 'none';
 
-    actualizarCarrusel(); // Ejecuta la primera foto inmediatamente (Soluciona el problema del blanco)
+    actualizarCarrusel(); // Ejecuta la primera foto inmediatamente
     carruselIntervalo = setInterval(actualizarCarrusel, duracionCarrusel); 
 }
 
@@ -80,9 +79,9 @@ function iniciarConteoPrincipal() {
             setTimeout(() => {
                 memoriaRecuerdo.style.display = 'none';
                 
-                // Reiniciar el ciclo de conteo (que reinicia el carrusel)
+                // ¡CORRECCIÓN CRÍTICA!: Incrementar el día ANTES de reiniciar el ciclo
+                diaActual++; 
                 iniciarConteoPrincipal(); 
-                diaActual++; // El incremento final
             }, recuerdosEspeciales[diaActual].duracion);
             
         } else if (diaActual > diaFinal) {
@@ -91,9 +90,9 @@ function iniciarConteoPrincipal() {
             finalizarConteo();
             return;
         } else {
-            // CORRECCIÓN SINCRONIZACIÓN: Mostrar el día ANTES de incrementar
+            // MOSTRAR el día y LUEGO incrementar para el PRÓXIMO ciclo
             displayContador.textContent = `Día ${diaActual}`;
-            diaActual++; // Se incrementa al final del ciclo
+            diaActual++; // El incremento siempre ocurre al final del ciclo
         }
     }, 50); // Velocidad del conteo
 }
@@ -105,7 +104,7 @@ function mostrarRecuerdo(recuerdo) {
 
     // 1. Detener el Carrusel en la Foto de Recuerdo del Día
     carruselFondo.style.backgroundImage = `url('${imagenURL}')`;
-    // ELIMINADA LA LÍNEA DEL FILTRO: carruselFondo.style.filter = 'brightness(0.5)';
+    carruselFondo.style.filter = 'brightness(0.5)'; // Oscurece ligeramente el fondo
     
     // 2. Llenar el contenido del Recuerdo
     tituloRecuerdo.textContent = recuerdo.titulo || `¡Recuerdo del Día ${diaActual}!`;
