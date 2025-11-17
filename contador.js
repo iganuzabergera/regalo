@@ -140,12 +140,34 @@ function finalizarConteo() {
     
     // Mostrar el contenido final
     contenidoFinal.style.display = 'block';
+    mostrarModal();
 }
 
 // --- ARRANQUE INICIAL (El Listener de Eventos más seguro) ---
 
 // Precarga antes de que el DOM esté listo
 precargarCarrusel(); 
+
+// --- FUNCIONES DEL MODAL DE AVISO ---
+
+function mostrarModal() {
+    // Muestra el modal al cambiar la clase
+    const modal = document.getElementById('aviso-modal');
+    if (modal) {
+        modal.style.display = 'block';
+    }
+}
+
+function cerrarModal() {
+    // Oculta el modal al hacer clic en la X o el botón
+    const modal = document.getElementById('aviso-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Asegúrate de que el navegador conozca la función al cerrar el modal
+window.cerrarModal = cerrarModal; // Hace la función global
 
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar las variables DOM una vez que el documento está listo
