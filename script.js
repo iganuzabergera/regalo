@@ -8,16 +8,17 @@ const urlAccesoRapido = "tesoro.html?skip=true";
 
 function verificarContraseña() {
     
-    // 1. Obtén la entrada del usuario y la limpia/convierte a minúsculas para chequeo
-    // NOTA: ELIMINAMOS .toLowerCase() AQUÍ para probar la clave secreta tal cual está definida, 
-    // y aplicamos .toLowerCase() a la clave maestra para flexibilidad.
-    let entradaUsuario = document.getElementById("casillaClave").value.trim();
+    // 1. Obtén la entrada del usuario, limpia y convierte a minúsculas para chequeo
+    // Esto asegura que la comparación sea case-insensitive (marta == MARTA)
+    let entradaUsuario = document.getElementById("casillaClave").value.trim().toLowerCase(); // CRÍTICO: Aplicar toLowerCase
 
     // 2. Elemento donde mostramos el mensaje
     const elementoError = document.getElementById("mensajeError");
     elementoError.style.color = "#ff4444"; // Color por defecto (rojo)
 
     // 3. Lógica Condicional (Chequeo de Claves)
+
+    // Comparamos la entrada (en minúsculas) con las claves (ya definidas en minúsculas)
 
     if (entradaUsuario === claveSecreta) {
         // CASO 1: CLAVE NORMAL CORRECTA (INICIA EL CONTADOR)
@@ -29,7 +30,7 @@ function verificarContraseña() {
              window.location.href = urlSorpresaFinal; 
         }, 1000); 
 
-    } else if (entradaUsuario.toLowerCase() === claveMaestra) {
+    } else if (entradaUsuario === claveMaestra) {
         // CASO 2: CLAVE MAESTRA CORRECTA (SALTA EL CONTADOR)
         elementoError.textContent = "¡ACCESO MAESTRO CONCEDIDO! Saltando a la sorpresa final...";
         elementoError.style.color = "#007bff"; // Azul especial
@@ -44,11 +45,3 @@ function verificarContraseña() {
         elementoError.textContent = "Clave incorrecta. ¡Revisa la pista y vuelve a intentarlo!";
     }
 }
-```
-
-### 🎯 Explicación de la Corrección:
-
-La corrección clave fue **eliminar el `.toLowerCase()`** de la variable `entradaUsuario` cuando se declara:
-
-```javascript
-let entradaUsuario = document.getElementById("casillaClave").value.trim();
