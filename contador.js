@@ -199,6 +199,7 @@ window.cerrarModal = cerrarModal; // Hace la función global
 
 document.addEventListener('DOMContentLoaded', function() {
     // Inicializar las variables DOM una vez que el documento está listo
+    // ... (todas tus inicializaciones de variables DOM van aquí) ...
     displayContador = document.getElementById('contador-display');
     contenidoFinal = document.getElementById('contenido-final');
     seccionContador = document.getElementById('contador-seccion');
@@ -207,6 +208,15 @@ document.addEventListener('DOMContentLoaded', function() {
     tituloRecuerdo = document.getElementById('titulo-recuerdo');
     textoRecuerdo = document.getElementById('texto-recuerdo');
 
-    // Inicia el proceso de conteo y carrusel
-    iniciarConteoPrincipal(); 
+
+    // **NUEVA LÓGICA DE SALTO**
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    if (urlParams.get('skip') === 'true') {
+        // Si se usó la clave maestra, salta al final
+        finalizarConteo();
+    } else {
+        // Comienza el proceso normal del contador
+        iniciarConteoPrincipal(); 
+    }
 });

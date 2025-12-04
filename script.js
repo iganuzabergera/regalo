@@ -1,27 +1,42 @@
+// --- CONFIGURACIÓN DE CLAVES ---
+const claveSecreta = "Marta"; // Clave que inicia el contador
+const claveMaestra = "rapido"; // <<-- ¡NUEVA CLAVE PARA SALTAR EL CONTADOR!
+// --- CONFIGURACIÓN DE CLAVES ---
+
+// La URL de tu página final (la que se muestra al terminar el contador)
+// NOTA: Esta es la URL de GitHub Pages + /tesoro.html
+const urlSorpresaFinal = "tesoro.html"; 
+const urlAccesoRapido = "tesoro.html?skip=true"; // URL que usará la clave maestra
+
 function verificarContraseña() {
-    // CAMBIA ESTO por tu clave secreta (asegúrate de que las minúsculas coincidan)
-    const claveSecreta = "Marta"; 
     
-    // Obtener el valor introducido por el usuario
-    let entradaUsuario = document.getElementById("casillaClave").value.trim(); // .trim() elimina espacios
+    // 3. Obtén la entrada del usuario y la limpia
+    let entradaUsuario = document.getElementById("casillaClave").value.trim().toLowerCase();
 
-    // Obtener el elemento para mostrar el error
-    const elementoError = document.getElementById("mensajeError");
-
-    // Lógica Condicional
-    if (entradaUsuario.toLowerCase() === claveSecreta.toLowerCase()) {
-        // CLAVE CORRECTA: Redirige a la página de la sorpresa
-        elementoError.textContent = "¡Clave Correcta! Preparate";
-        elementoError.style.color = "#00cc00"; // Verde
-
-        // Redirige a la página del Tesoro dentro del mismo proyecto
+    // 4. Lógica Condicional
+    if (entradaUsuario === claveSecreta) {
+        // CASO 1: CLAVE NORMAL (INICIA EL CONTADOR)
+        document.getElementById("mensajeError").textContent = "Clave Correcta! Iniciando la cuenta regresiva...";
+        document.getElementById("mensajeError").style.color = "#00cc00"; 
+        
         setTimeout(() => {
-             window.location.href = "tesoro.html"; 
-        }, 1000); // Espera 1 segundo antes de redirigir (para ver el mensaje de éxito)
+             // Redirige a la página del Tesoro (inicio normal)
+             window.location.href = urlSorpresaFinal; 
+        }, 1000); 
+
+    } else if (entradaUsuario === claveMaestra) {
+        // CASO 2: CLAVE MAESTRA (SALTA EL CONTADOR)
+        document.getElementById("mensajeError").textContent = "¡ACCESO MAESTRO CONCEDIDO! Saltando a la sorpresa final...";
+        document.getElementById("mensajeError").style.color = "#007bff"; // Azul para acceso especial
+        
+        setTimeout(() => {
+             // Redirige a la página del Tesoro con un parámetro para saltar
+             window.location.href = urlAccesoRapido; 
+        }, 1000); 
 
     } else {
-        // CLAVE INCORRECTA: Muestra un mensaje de error
-        elementoError.textContent = "Clave incorrecta. ";
-        elementoError.style.color = "#ff4444"; // Rojo
+        // CASO 3: CLAVE INCORRECTA
+        document.getElementById("mensajeError").textContent = "Clave incorrecta. ¡Revisa la pista y vuelve a intentarlo!";
+        document.getElementById("mensajeError").style.color = "#ff4444"; 
     }
 }
