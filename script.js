@@ -1,6 +1,6 @@
 // --- CONFIGURACIÓN DE CLAVES ---
 const claveSecreta = "marta"; // Clave que inicia el contador (Cámbiala si quieres)
-const claveMaestra = "rapido"; // Clave para saltar el contador
+const claveMaestra = "acceso-rapido"; // Clave para saltar el contador
 
 // La URL de tu página final
 const urlSorpresaFinal = "tesoro.html"; 
@@ -9,7 +9,9 @@ const urlAccesoRapido = "tesoro.html?skip=true";
 function verificarContraseña() {
     
     // 1. Obtén la entrada del usuario y la limpia/convierte a minúsculas para chequeo
-    let entradaUsuario = document.getElementById("casillaClave").value.trim().toLowerCase();
+    // NOTA: ELIMINAMOS .toLowerCase() AQUÍ para probar la clave secreta tal cual está definida, 
+    // y aplicamos .toLowerCase() a la clave maestra para flexibilidad.
+    let entradaUsuario = document.getElementById("casillaClave").value.trim();
 
     // 2. Elemento donde mostramos el mensaje
     const elementoError = document.getElementById("mensajeError");
@@ -27,7 +29,7 @@ function verificarContraseña() {
              window.location.href = urlSorpresaFinal; 
         }, 1000); 
 
-    } else if (entradaUsuario === claveMaestra) {
+    } else if (entradaUsuario.toLowerCase() === claveMaestra) {
         // CASO 2: CLAVE MAESTRA CORRECTA (SALTA EL CONTADOR)
         elementoError.textContent = "¡ACCESO MAESTRO CONCEDIDO! Saltando a la sorpresa final...";
         elementoError.style.color = "#007bff"; // Azul especial
@@ -42,3 +44,11 @@ function verificarContraseña() {
         elementoError.textContent = "Clave incorrecta. ¡Revisa la pista y vuelve a intentarlo!";
     }
 }
+```
+
+### 🎯 Explicación de la Corrección:
+
+La corrección clave fue **eliminar el `.toLowerCase()`** de la variable `entradaUsuario` cuando se declara:
+
+```javascript
+let entradaUsuario = document.getElementById("casillaClave").value.trim();
