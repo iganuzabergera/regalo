@@ -1,5 +1,5 @@
 // --- CONFIGURACIÓN DE CLAVES ---
-const claveSecreta = "Marta"; // Clave que inicia el contador
+const claveSecreta = "marta"; // Clave que inicia el contador
 const claveMaestra = "rapido"; // <<-- ¡NUEVA CLAVE PARA SALTAR EL CONTADOR!
 // --- CONFIGURACIÓN DE CLAVES ---
 
